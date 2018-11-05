@@ -12,7 +12,6 @@ class Articulos extends Component {
     }
 
     queryAPI = () => {
-        //console.log(this.props.auth.getAccessToken());
         //const {getAccessToken} = this.props.auth;
         //const headers = {'Authorization': `Bearer ${getAccessToken()}`};
         const url = 'http://localhost:5000/articulos';

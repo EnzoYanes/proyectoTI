@@ -2,10 +2,20 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
 const register = async(req, res) => {
-    const { username, password} = req.body;
+    const { username, 
+        password, 
+        nombre, 
+        apellido, 
+        fechaNac, 
+        correo, 
+        tipo, 
+        categoria, 
+        nombreEmpresa, 
+        linkEmpresa 
+    } = req.body;
     User.findOne({username: username}, (error, usuario) => {
         if (!usuario) {
-            const user = new User({username, password});
+            const user = new User({username, password, nombre, apellido, fechaNac, correo, tipo, categoria, nombreEmpresa, linkEmpresa});
             user.save();
             res.json({ok: true});
         } else {

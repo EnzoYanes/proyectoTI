@@ -1,32 +1,11 @@
 import history from '../history';
-//import auth0 from 'auth0-js';
-//import { AUTH_CONFIG } from './auth0-variables';
 
 export default class Auth {
   
   constructor() {
-    this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
-    this.handleAuthentication = this.handleAuthentication.bind(this);
     this.isAuthenticated = this.isAuthenticated.bind(this);
     this.getAccessToken = this.getAccessToken.bind(this);
-  }
-
-  login() {
-    this.props.history.push("/login");
-  }
-
-  handleAuthentication() {
-    this.auth0.parseHash((err, authResult) => {
-      if (authResult && authResult.accessToken && authResult.idToken) {
-        this.setSession(authResult);
-        history.replace('/productos');
-      } else if (err) {
-        history.replace('/productos');
-        console.log(err);
-        alert(`Error: ${err.error}. Check the console for further details.`);
-      }
-    });
   }
 
   getAccessToken() {
