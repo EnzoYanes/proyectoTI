@@ -20,6 +20,9 @@ class NavBar extends Component {
         }
         return (
             <nav className="nav-wrapper">
+                <div className="left hide-on-med-and-down">
+                    <Link to={'/altaCategoria'} className="waves-effect waves-light btn" >Alta Categoría</Link>
+                </div>
                 <ul className="right hide-on-med-and-down">
                     <Link to={'/'} className="brand-logo center">Logo</Link>
                     {resultado}

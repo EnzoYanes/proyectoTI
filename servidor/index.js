@@ -26,6 +26,7 @@ const checkScopes = jwtAuthz(['read:articulos']);
 // Routas
 app.use('/api/tasks', require('./routes/task.routes'));
 app.use('/api/user', require('./routes/user.routes'));
+app.use('/api/categoria', require('./routes/categoria.routes'));
 app.get('/articulos', /*jwtCheck, checkScopes, */ (req, res) => {
      let articulos = [
           {
