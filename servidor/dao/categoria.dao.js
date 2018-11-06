@@ -1,4 +1,3 @@
-
 const Categoria = require('../models/categoria');
 
 const getCategorias = async (req, res) => {

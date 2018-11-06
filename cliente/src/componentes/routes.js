@@ -12,6 +12,7 @@ import Registro from './Registro';
 import Articulos from './Articulos';
 import ArticuloDetalle from './ArticuloDetalle';
 import AltaCategoria from './AltaCategoria';
+import Suscripciones from './Suscripciones';
 import NavBar from './NavBar';
 
 const auth = new Auth();
@@ -37,6 +38,7 @@ export const makeMainRoutes = () => {
                 <Route path="/registro" component={Registro} />
                 <Route exact path="/" component={Articulos} />
                 <Route path="/altaCategoria" component={AltaCategoria} />
+                <Route path="/suscripciones" component={Suscripciones} />
 
                 <Route exact path="/articulo/:articuloId" render={(props) => (
                     <ArticuloDetalle
