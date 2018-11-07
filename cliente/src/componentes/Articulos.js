@@ -14,7 +14,7 @@ class Articulos extends Component {
     queryAPI = () => {
         //const {getAccessToken} = this.props.auth;
         //const headers = {'Authorization': `Bearer ${getAccessToken()}`};
-        const url = 'http://localhost:5000/articulos';
+        const url = 'http://localhost:5000/api/recurso';
 
         fetch(url)
             .then(res => res.json())
@@ -25,7 +25,7 @@ class Articulos extends Component {
 
     render() {
         return (
-            <div className="center">
+            <div>
                 <h2>Nuestros Articulos</h2>
                 <ul>
                     {Object.keys(this.state.articulos).map(articulo => (

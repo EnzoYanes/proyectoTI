@@ -13,6 +13,7 @@ import Articulos from './Articulos';
 import ArticuloDetalle from './ArticuloDetalle';
 import AltaCategoria from './AltaCategoria';
 import Suscripciones from './Suscripciones';
+import AltaRecurso from './AltaRecurso';
 import NavBar from './NavBar';
 
 const auth = new Auth();
@@ -39,6 +40,7 @@ export const makeMainRoutes = () => {
                 <Route exact path="/" component={Articulos} />
                 <Route path="/altaCategoria" component={AltaCategoria} />
                 <Route path="/suscripciones" component={Suscripciones} />
+                <Route path="/altaRecurso" component={AltaRecurso} />
 
                 <Route exact path="/articulo/:articuloId" render={(props) => (
                     <ArticuloDetalle
