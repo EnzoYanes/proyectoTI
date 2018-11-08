@@ -13,6 +13,7 @@ import Articulos from './Articulos';
 import ArticuloDetalle from './ArticuloDetalle';
 import AltaCategoria from './AltaCategoria';
 import NavBar from './NavBar';
+import Tree from './Tree';
 
 const auth = new Auth();
 
@@ -43,6 +44,8 @@ export const makeMainRoutes = () => {
                         auth={auth} {...props}
                     />
                 ) } />
+
+                <Route path="/tree" component={Tree}/>
 
             </div>
         </Router>

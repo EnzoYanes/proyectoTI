@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Articulo from './Articulo';
+import TreeView from 'deni-react-treeview';
 
 class Articulos extends Component {
 
@@ -25,16 +26,22 @@ class Articulos extends Component {
 
     render() {
         return (
-            <div className="center">
-                <h2>Nuestros Articulos</h2>
-                <ul>
-                    {Object.keys(this.state.articulos).map(articulo => (
-                        <Articulo
-                            informacion={this.state.articulos[articulo]}
-                            key={articulo}
-                        />
-                    ))}
-                </ul>
+            <div>
+                <div className="left">
+                    <TreeView url="http://localhost:5000/articulos" showRoot={true} />
+                </div> 
+                
+                <div className="center">
+                    <h2>Nuestros Articulos</h2>
+                    <ul>
+                        {Object.keys(this.state.articulos).map(articulo => (
+                            <Articulo
+                                informacion={this.state.articulos[articulo]}
+                                key={articulo}
+                            />
+                        ))}
+                    </ul>
+                </div>
             </div>
         );
     }
