@@ -27,6 +27,7 @@ const checkScopes = jwtAuthz(['read:articulos']);
 app.use('/api/tasks', require('./routes/task.routes'));
 app.use('/api/user', require('./routes/user.routes'));
 app.use('/api/categoria', require('./routes/categoria.routes'));
+
 app.get('/articulos', /*jwtCheck, checkScopes, */ (req, res) => {
      let articulos =[
         
@@ -159,6 +160,10 @@ app.get('/articulos', /*jwtCheck, checkScopes, */ (req, res) => {
       res.json(articulos);
      
 });
+
+app.use('/api/suscripcion', require('./routes/suscripcion.routes'));
+app.use('/api/recurso', require('./routes/recurso.routes'));
+
 
 app.listen(5000, () => {
      console.log('Servidor funcionando');

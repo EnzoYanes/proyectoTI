@@ -12,6 +12,8 @@ import Registro from './Registro';
 import Articulos from './Articulos';
 import ArticuloDetalle from './ArticuloDetalle';
 import AltaCategoria from './AltaCategoria';
+import Suscripciones from './Suscripciones';
+import AltaRecurso from './AltaRecurso';
 import NavBar from './NavBar';
 import Tree from './Tree';
 
@@ -38,6 +40,8 @@ export const makeMainRoutes = () => {
                 <Route path="/registro" component={Registro} />
                 <Route exact path="/" component={Articulos} />
                 <Route path="/altaCategoria" component={AltaCategoria} />
+                <Route path="/suscripciones" component={Suscripciones} />
+                <Route path="/altaRecurso" component={AltaRecurso} />
 
                 <Route exact path="/articulo/:articuloId" render={(props) => (
                     <ArticuloDetalle

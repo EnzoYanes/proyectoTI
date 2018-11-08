@@ -15,7 +15,7 @@ class Articulos extends Component {
     queryAPI = () => {
         //const {getAccessToken} = this.props.auth;
         //const headers = {'Authorization': `Bearer ${getAccessToken()}`};
-        const url = 'http://localhost:5000/articulos';
+        const url = 'http://localhost:5000/api/recurso';
 
         fetch(url)
             .then(res => res.json())
@@ -27,6 +27,7 @@ class Articulos extends Component {
     render() {
         return (
             <div>
+
                 <div className="left">
                     <TreeView url="http://localhost:5000/articulos" showRoot={true} />
                 </div> 
@@ -42,6 +43,7 @@ class Articulos extends Component {
                         ))}
                     </ul>
                 </div>
+
             </div>
         );
     }
