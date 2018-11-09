@@ -14,6 +14,7 @@ import ArticuloDetalle from './ArticuloDetalle';
 import AltaCategoria from './AltaCategoria';
 import Suscripciones from './Suscripciones';
 import AltaRecurso from './AltaRecurso';
+import EditarRecurso from './EditarRecurso';
 import NavBar from './NavBar';
 
 const auth = new Auth();
@@ -45,6 +46,11 @@ export const makeMainRoutes = () => {
                 <Route exact path="/articulo/:articuloId" render={(props) => (
                     <ArticuloDetalle
                         auth={auth} {...props}
+                    />
+                ) } />
+                <Route exact path="/editarRecurso/:recursoId" render={(props) => (
+                    <EditarRecurso
+                        id={props.location.pathname.replace('/editarRecurso/','')}
                     />
                 ) } />
 

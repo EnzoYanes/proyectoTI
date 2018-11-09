@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Articulo from './Articulo';
+import axios from 'axios';
 
 class Articulos extends Component {
 
@@ -12,14 +13,10 @@ class Articulos extends Component {
     }
 
     queryAPI = () => {
-        //const {getAccessToken} = this.props.auth;
-        //const headers = {'Authorization': `Bearer ${getAccessToken()}`};
         const url = 'http://localhost:5000/api/recurso';
-
-        fetch(url)
-            .then(res => res.json())
-            .then(data => {
-                this.setState({articulos: data})
+        axios.get(url)
+            .then(res => {
+                this.setState({articulos: res.data})
             })
     }
 

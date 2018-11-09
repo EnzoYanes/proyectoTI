@@ -8,4 +8,6 @@ router.get('/:id', recurso.getRecurso);
 
 router.post('/', recurso.addRecurso);
 
+router.put('/:id', recurso.updateRecurso);
+
 module.exports = router;
