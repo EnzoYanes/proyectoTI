@@ -11,7 +11,10 @@ class NavBar extends Component {
         const {isAuthenticated} = this.props.auth
         let resultado;
         if (isAuthenticated()) {
-            resultado = <a className="btn" onClick={this.cerrarSesion}>Cerrar Sesión</a>
+            resultado = <div>
+                <Link to={'/editarCliente'} className="waves-effect waves-light btn">Edit cliente</Link>
+                <button className="btn" onClick={this.cerrarSesion}>Cerrar Sesión</button>
+            </div>
         }else{
             resultado = <div>
                 <Link to={'/login'} className="waves-effect waves-light btn">Iniciar sesión</Link>
@@ -19,17 +22,19 @@ class NavBar extends Component {
             </div>
         }
         return (
-            <nav className="nav-wrapper">
-                <ul className="left hide-on-med-and-down">
-                    <Link to={'/'} className="btn">Inicio</Link>
-                    <Link to={'/altaCategoria'} className="waves-effect waves-light btn" >Alta Categoría</Link>
-                    <Link to={'/suscripciones'} className="waves-effect waves-light btn" >Suscripciones</Link>
-                    <Link to={'/altaRecurso'} className="waves-effect waves-light btn" >Alta Rec</Link>
-                </ul>
-                <ul className="right hide-on-med-and-down">
-                    {resultado}
-                </ul>
-            </nav>
+            <div className="navbar-fixed">
+                <nav className="nav-wrapper">
+                    <ul className="left hide-on-med-and-down">
+                        <Link to={'/'} className="btn">Inicio</Link>
+                        <Link to={'/altaCategoria'} className="waves-effect waves-light btn" >Alta Categoría</Link>
+                        <Link to={'/suscripciones'} className="waves-effect waves-light btn" >Suscripciones</Link>
+                        <Link to={'/altaRecurso'} className="waves-effect waves-light btn" >Alta Rec</Link>
+                    </ul>
+                    <ul className="right hide-on-med-and-down">
+                        {resultado}
+                    </ul>
+                </nav>
+            </div>
         );
     }
 }

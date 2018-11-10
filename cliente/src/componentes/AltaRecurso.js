@@ -77,7 +77,7 @@ class AltaRecurso extends Component {
                     <div className="col s5">
                         <h4>Alta recurso</h4>
                         <form onSubmit={this.addRecurso}>
-                            <select name="idCategoria" value={this.state.tipo} onChange={this.handleChange} className="browser-default">
+                            <select name="idCategoria" value={this.state.idCategoria} onChange={this.handleChange} className="browser-default">
                                 <option value="">Seleccione categoria</option>
                                 {
                                     this.state.categorias.map(cat => {
