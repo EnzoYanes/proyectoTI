@@ -32,7 +32,8 @@ const login = (req, res) => {
         if (usuario) {
             if (usuario.comparePassword(password)){
                 //return res.setHeader('Authorization', 'Bearer ' + utils.createToken(usuario));
-                return res.json({token: jwt.sign({user: usuario}, 'secret')});
+                return res.json({token: jwt.sign({user: usuario}, 'secret'),
+                    user: usuario});
             }else{
                 return res.json({status: 'Contraseña incorrecta'});
             }
@@ -42,7 +43,19 @@ const login = (req, res) => {
     })
 };
 
+const getUser = async (req,res) => {
+    const usuario = await User.findById(req.params.id);
+    res.json(usuario);
+};
+
+const putUser = async(req, res) => {
+    await User.findByIdAndUpdate(req.params.id, req.body.cliente);
+    res.json({message: 'Cliente actualizado'});
+};
+
 module.exports = {
     register,
-    login
+    login,
+    getUser,
+    putUser
 };

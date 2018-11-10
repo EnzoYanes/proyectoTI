@@ -37,8 +37,14 @@ const addRecurso = async(req, res) => {
     })
 }
 
+const updateRecurso = async(req, res) => {
+    await Recurso.findByIdAndUpdate(req.params.id, req.body.recurso);
+    res.json({status: 'Recurso actualizado'});
+};
+
 module.exports={
     getRecursos,
     getRecurso,
-    addRecurso
+    addRecurso,
+    updateRecurso
 };

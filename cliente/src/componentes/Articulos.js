@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import Articulo from './Articulo';
+<<<<<<< HEAD
 import TreeView from 'deni-react-treeview';
+=======
+import axios from 'axios';
+>>>>>>> 9f82658c63982b69d8f762c5a1342e4cb571070d
 
 class Articulos extends Component {
 
@@ -13,14 +17,10 @@ class Articulos extends Component {
     }
 
     queryAPI = () => {
-        //const {getAccessToken} = this.props.auth;
-        //const headers = {'Authorization': `Bearer ${getAccessToken()}`};
         const url = 'http://localhost:5000/api/recurso';
-
-        fetch(url)
-            .then(res => res.json())
-            .then(data => {
-                this.setState({articulos: data})
+        axios.get(url)
+            .then(res => {
+                this.setState({articulos: res.data})
             })
     }
 

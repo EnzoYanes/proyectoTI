@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
-class AltaRecurso extends Component {
+class EditarRecurso extends Component {
 
     constructor(props){
         super(props);
@@ -16,11 +17,12 @@ class AltaRecurso extends Component {
             categorias: []
         }
         this.handleChange = this.handleChange.bind(this);
-        this.addRecurso = this.addRecurso.bind(this);
+        this.updateRecurso = this.updateRecurso.bind(this);
     }
 
     componentWillMount(){
         this.getCategorias();
+        this.getRecurso();
     }
 
     handleChange(e){
@@ -38,35 +40,42 @@ class AltaRecurso extends Component {
             })
     }
 
-    addRecurso(e){
-        fetch('http://localhost:5000/api/recurso/', {
-            method: 'POST',
-            body: JSON.stringify(this.state),
-            headers:{
-                'Accept': 'application/jason',
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(res => res.json())
-        .then(data => {
-            if(data.message){
-                window.M.toast({html: data.message}); 
-            }
-            else{
-                window.M.toast({html: 'Recurso creado'});
-                this.setState({idCategoria: '',
-                    nombre: '',
-                    descripcion: '',
-                    imagen: '',
-                    tipo: '',
-                    suscripcionReq: '',
-                    descargable: false,
-                    archivo: '',
-                    categorias: []});
-                this.getCategorias();
-            }
-        })
-        .catch(error => console.log(error));
+    getRecurso(){
+        axios.get(`http://localhost:5000/api/recurso/${this.props.id}`)
+            .then(res => {
+                this.setState({idCategoria: res.data.idCategoria,
+                    nombre: res.data.nombre,
+                    descripcion: res.data.descripcion,
+                    imagen: res.data.imagen,
+                    tipo: res.data.tipo,
+                    suscripcionReq: res.data.suscripcionReq,
+                    descargable: res.data.descargable,
+                    archivo: res.data.archivo
+                })
+            })
+    }
+
+    updateRecurso(e){
+        const recurso = {
+            idCategoria: this.state.idCategoria,
+            nombre: this.state.nombre,
+            descripcion: this.state.descripcion,
+            imagen: this.state.imagen,
+            tipo: this.state.tipo,
+            suscripcionReq: this.state.suscripcionReq,
+            descargable: this.state.descargable,
+            archivo: this.state.archivo
+        }
+        axios.put(`http://localhost:5000/api/recurso/${this.props.id}`, {recurso})
+            .then(data => {
+                if(data.message){
+                    window.M.toast({html: data.message}); 
+                }
+                else{
+                    window.M.toast({html: 'Recurso actualizado'});
+                }
+            })
+            .catch(error => console.log(error));
         e.preventDefault();
     }
 
@@ -75,8 +84,8 @@ class AltaRecurso extends Component {
             <div className="container">
                 <div className="row">
                     <div className="col s5">
-                        <h4>Alta recurso</h4>
-                        <form onSubmit={this.addRecurso}>
+                        <h4>Editar recurso</h4>
+                        <form onSubmit={this.updateRecurso}>
                             <select name="idCategoria" value={this.state.idCategoria} onChange={this.handleChange} className="browser-default">
                                 <option value="">Seleccione categoria</option>
                                 {
@@ -106,15 +115,14 @@ class AltaRecurso extends Component {
                                 <label>
                                     <input 
                                         name="descargable" 
-                                        checked={this.state.descargable} 
+                                        checked={this.state.descargable}
                                         onChange={(e) => this.setState(prevState => ({descargable: !prevState.descargable}))} 
                                         type="checkbox" 
                                     />
                                     <span>Descargable</span>
                                 </label>
                             </p>
-
-                            <button type="submit" className="btn light-blue darken-4">Crear</button>
+                            <button type="submit" className="btn light-blue darken-4">Guardar</button>
                         </form>
                     </div>
                 </div>
@@ -123,4 +131,4 @@ class AltaRecurso extends Component {
     }
 }
 
-export default AltaRecurso;
+export default EditarRecurso;

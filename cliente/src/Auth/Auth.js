@@ -6,6 +6,7 @@ export default class Auth {
     this.logout = this.logout.bind(this);
     this.isAuthenticated = this.isAuthenticated.bind(this);
     this.getAccessToken = this.getAccessToken.bind(this);
+    this.getUserId = this.getUserId.bind(this);
   }
 
   getAccessToken() {
@@ -16,10 +17,19 @@ export default class Auth {
     return accessToken;
   }
 
-  setSession(token) {
+  getUserId(){
+    const userId = localStorage.getItem('userId');
+    if(!userId){
+      return new Error('Hubo un error al generar el Id');
+    }
+    return userId;
+  }
+
+  setSession(token, usuario) {
     // Set the time that the access token will expire at
-    let expiresAt = JSON.stringify((5 * 60 * 1000) + new Date().getTime());
+    let expiresAt = JSON.stringify((20 * 60 * 1000) + new Date().getTime());
     localStorage.setItem('access_token', token);
+    localStorage.setItem('userId', usuario._id);
     //localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
     // navigate to the home route
@@ -29,6 +39,7 @@ export default class Auth {
   logout() {
     // Clear access token and ID token from local storage
     localStorage.removeItem('access_token');
+    localStorage.removeItem('userId');
     //localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     // navigate to the home route

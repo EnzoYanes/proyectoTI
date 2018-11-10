@@ -8,6 +8,7 @@ const Articulo = (props) => {
             <img src={`img/camisa_8.png`} alt={nombre} />
             <p>{nombre}</p>
             <Link to={`/articulo/${_id}`} className="btn">Más Información</Link>
+            <Link to={`/editarRecurso/${_id}`} className="btn">Editar</Link>
         </li>
     );
 };

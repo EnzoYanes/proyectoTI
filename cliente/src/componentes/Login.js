@@ -34,7 +34,7 @@ class Login extends Component{
             if (data.status) {
                 window.M.toast({html: data.status});
             } else {
-                this.props.auth.setSession(data.token);
+                this.props.auth.setSession(data.token, data.user);
                 this.props.history.push("/");
             }
         })
@@ -53,7 +53,7 @@ class Login extends Component{
                             <input name="password" value={this.state.password} onChange={this.handleChange} type="password" placeholder="password" />
 
                             <button type="submit" className="btn light-blue darken-4">Iniciar</button>
-                            <Link to={'/register'} className="btn light-blue darken-4 right">Registrarse</Link>
+                            <Link to={'/registro'} className="btn light-blue darken-4 right">Registrarse</Link>
                         </form>
                     </div>
                 </div>

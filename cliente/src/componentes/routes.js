@@ -14,8 +14,14 @@ import ArticuloDetalle from './ArticuloDetalle';
 import AltaCategoria from './AltaCategoria';
 import Suscripciones from './Suscripciones';
 import AltaRecurso from './AltaRecurso';
+import EditarRecurso from './EditarRecurso';
+import EditarCliente from './EditarCliente';
 import NavBar from './NavBar';
+<<<<<<< HEAD
 import Tree from './Tree';
+=======
+import SideBar from './SideBar';
+>>>>>>> 9f82658c63982b69d8f762c5a1342e4cb571070d
 
 const auth = new Auth();
 
@@ -30,24 +36,36 @@ export const makeMainRoutes = () => {
         <Router history={history}>
             <div>
                 <NavBar auth={auth} />
+                <SideBar />
+                <div style={{paddingLeft:300}}>
+                    <Route path="/login" render={(props) => (
+                        <Login
+                            auth={auth} {...props}
+                        />
+                    )} />
+                    
+                    <Route path="/registro" component={Registro} />
+                    <Route exact path="/" component={Articulos} />
+                    <Route path="/altaCategoria" component={AltaCategoria} />
+                    <Route path="/suscripciones" component={Suscripciones} />
+                    <Route path="/altaRecurso" component={AltaRecurso} />
 
-                <Route path="/login" render={(props) => (
-                    <Login
-                        auth={auth} {...props}
-                    />
-                )} />
-                
-                <Route path="/registro" component={Registro} />
-                <Route exact path="/" component={Articulos} />
-                <Route path="/altaCategoria" component={AltaCategoria} />
-                <Route path="/suscripciones" component={Suscripciones} />
-                <Route path="/altaRecurso" component={AltaRecurso} />
-
-                <Route exact path="/articulo/:articuloId" render={(props) => (
-                    <ArticuloDetalle
-                        auth={auth} {...props}
-                    />
-                ) } />
+                    <Route exact path="/articulo/:articuloId" render={(props) => (
+                        <ArticuloDetalle
+                            auth={auth} {...props}
+                        />
+                    ) } />
+                    <Route exact path="/editarRecurso/:recursoId" render={(props) => (
+                        <EditarRecurso
+                            id={props.location.pathname.replace('/editarRecurso/','')}
+                        />
+                    ) } />
+                    <Route exact path="/editarCliente" render={(props) => (
+                        <EditarCliente
+                            auth={auth}
+                        />
+                    ) } />
+                </div>
 
                 <Route path="/tree" component={Tree}/>
 
