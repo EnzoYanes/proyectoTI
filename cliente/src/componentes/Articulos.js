@@ -22,17 +22,17 @@ class Articulos extends Component {
 
     render() {
         return (
-            <div>
-                <h2>Nuestros Articulos</h2>
-                <ul>
+            <React.Fragment>
+                <h2 className="center">Nuestros Articulos</h2>
+                <div className="row">
                     {Object.keys(this.state.articulos).map(articulo => (
                         <Articulo
                             informacion={this.state.articulos[articulo]}
                             key={articulo}
                         />
                     ))}
-                </ul>
-            </div>
+                </div>
+            </React.Fragment>
         );
     }
 }
