@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import dateformat from 'dateformat';
 
 class EditarCliente extends Component{
 
@@ -31,11 +32,13 @@ class EditarCliente extends Component{
     getCliente(idUser){
         axios.get(`http://localhost:5000/api/user/${idUser}`)
             .then(res => {
+                let fecha = new Date(res.data.fechaNac.replace('T00','T12'));
+                fecha = dateformat(fecha, 'yyyy-mm-dd');
                 this.setState({
                     username: res.data.username,
                     nombre: res.data.nombre,
                     apellido: res.data.apellido,
-                    fechaNac: res.data.fechaNac,
+                    fechaNac: fecha,
                     correo: res.data.correo
                 })
             })
@@ -60,6 +63,15 @@ class EditarCliente extends Component{
             })
             .catch(error => console.log(error));
         e.preventDefault();
+    }
+    
+    reviver(key, value) {
+        const dateFormat = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/;
+        if (typeof value === "string" && dateFormat.test(value)) {
+            return new Date(value);
+        }
+
+        return value;
     }
 
     render(){
