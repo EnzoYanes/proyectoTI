@@ -12,6 +12,7 @@ class NavBar extends Component {
         let resultado;
         if (isAuthenticated()) {
             resultado = <div>
+                <Link to={'/editarProveedor'} className="waves-effect waves-light btn">Edit Proveedor</Link>
                 <Link to={'/editarCliente'} className="waves-effect waves-light btn">Edit cliente</Link>
                 <button className="btn" onClick={this.cerrarSesion}>Cerrar Sesión</button>
             </div>

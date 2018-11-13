@@ -16,6 +16,7 @@ import Suscripciones from './Suscripciones';
 import AltaRecurso from './AltaRecurso';
 import EditarRecurso from './EditarRecurso';
 import EditarCliente from './EditarCliente';
+import EditarProveedor from './EditarProveedor';
 import NavBar from './NavBar';
 import SideBar from './SideBar';
 
@@ -58,6 +59,11 @@ export const makeMainRoutes = () => {
                     ) } />
                     <Route exact path="/editarCliente" render={(props) => (
                         <EditarCliente
+                            auth={auth}
+                        />
+                    ) } />
+                    <Route exact path="/editarProveedor" render={(props) => (
+                        <EditarProveedor
                             auth={auth}
                         />
                     ) } />

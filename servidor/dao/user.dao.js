@@ -50,7 +50,7 @@ const getUser = async (req,res) => {
 
 const putUser = async(req, res) => {
     await User.findByIdAndUpdate(req.params.id, req.body.cliente);
-    res.json({message: 'Cliente actualizado'});
+    res.json({message: 'Usuario actualizado'});
 };
 
 module.exports = {
