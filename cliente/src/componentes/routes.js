@@ -17,6 +17,7 @@ import AltaRecurso from './AltaRecurso';
 import EditarRecurso from './EditarRecurso';
 import EditarCliente from './EditarCliente';
 import EditarProveedor from './EditarProveedor';
+import ComprarSuscripcion from './ComprarSuscripcion';
 import NavBar from './NavBar';
 import SideBar from './SideBar';
 
@@ -64,6 +65,11 @@ export const makeMainRoutes = () => {
                     ) } />
                     <Route exact path="/editarProveedor" render={(props) => (
                         <EditarProveedor
+                            auth={auth}
+                        />
+                    ) } />
+                    <Route exact path="/comprarSuscripcion" render={(props) => (
+                        <ComprarSuscripcion
                             auth={auth}
                         />
                     ) } />

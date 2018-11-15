@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import dateformat from 'dateformat';
 
-class EditarProveedor extends Component{
+class ComprarSuscripcion extends Component{
 
     constructor(props){
         super(props);
@@ -10,10 +10,8 @@ class EditarProveedor extends Component{
             username: '',
             nombre: '',
             apellido: '',
-            fechaNac: '',
-            correo: '',
-            nombreEmpresa: '',
-            linkEmpresa: ''
+            categoria: '',
+            correo: ''
         };
         this.handleChange = this.handleChange.bind(this);
         this.actualizar = this.actualizar.bind(this);
@@ -40,10 +38,8 @@ class EditarProveedor extends Component{
                     username: res.data.username,
                     nombre: res.data.nombre,
                     apellido: res.data.apellido,
-                    fechaNac: fecha,
-                    correo: res.data.correo,
-                    nombreEmpresa: res.data.nombreEmpresa,
-                    linkEmpresa: res.data.linkEmpresa
+                    categoria: res.data.categoria,
+                    correo: res.data.correo
                 })
             })
     }
@@ -51,12 +47,7 @@ class EditarProveedor extends Component{
     actualizar(e){
         const User = this.props.auth.getUser();
         const cliente = {
-            nombre: this.state.nombre,
-            apellido: this.state.apellido,
-            fechaNac: this.state.fechaNac,
-            correo: this.state.correo,
-            nombreEmpresa: this.state.nombreEmpresa,
-            linkEmpresa: this.state.linkEmpresa
+            categoria: this.state.categoria
         }
         axios.put(`http://localhost:5000/api/user/${User._id}`, {cliente})
             .then(res => {
@@ -70,22 +61,24 @@ class EditarProveedor extends Component{
             .catch(error => console.log(error));
         e.preventDefault();
     }
-
+    
     render(){
         return(
             <div className="container">
                 <div className="row">
-                    <h1>Actualizar datos de Proveedor</h1>
+                    <h1>Cambiar suscripción</h1>
                     <div className="col s5">
                         <form onSubmit={this.actualizar}>
-                            <input name="username" value={this.state.username} onChange={this.handleChange} type="text" disabled={true} />
-                            <input name="nombre" value={this.state.nombre} onChange={this.handleChange} type="text" placeholder="Nombre" required />
-                            <input name="apellido" value={this.state.apellido} onChange={this.handleChange} type="text" placeholder="Apellido" required />
-                            <input name="fechaNac" value={this.state.fechaNac} onChange={this.handleChange} type="date" required />
-                            <input name="correo" value={this.state.correo} onChange={this.handleChange} type="text" placeholder="Correo electrónico" required />
-                            <input name="nombreEmpresa" value={this.state.nombreEmpresa} onChange={this.handleChange} type="text" placeholder="Nombre de la empresa" required />
-                            <input name="linkEmpresa" value={this.state.linkEmpresa} onChange={this.handleChange} type="text" placeholder="Link de la empresa" required />
-
+                            <input name="username" value={this.state.username} type="text" disabled={true} />
+                            <input name="nombre" value={this.state.nombre} type="text" disabled={true} />
+                            <input name="apellido" value={this.state.apellido} type="text" disabled={true} />
+                            <select name="categoria" value={this.state.categoria} onChange={this.handleChange} className="browser-default">
+                                <option value="Free">Free</option>
+                                <option value="Silver">Silver</option>
+                                <option value="Gold">Gold</option>
+                            </select>
+                            <input name="correo" value={this.state.correo} type="text" disabled={true} />
+                            
                             <button type="submit" className="btn light-blue darken-4">Guardar</button>
                         </form>
                         
@@ -97,4 +90,4 @@ class EditarProveedor extends Component{
     }
 }
 
-export default EditarProveedor;
+export default ComprarSuscripcion;

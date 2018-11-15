@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import history from '../history';
 
 class NavBar extends Component {
 
     cerrarSesion = () => {
         this.props.auth.logout();
+        history.replace('/');
     }
 
     render(){
@@ -12,6 +14,7 @@ class NavBar extends Component {
         let resultado;
         if (isAuthenticated()) {
             resultado = <div>
+                <Link to={'/comprarSuscripcion'} className="waves-effect waves-light btn">Comp Sus</Link>
                 <Link to={'/editarProveedor'} className="waves-effect waves-light btn">Edit Proveedor</Link>
                 <Link to={'/editarCliente'} className="waves-effect waves-light btn">Edit cliente</Link>
                 <button className="btn" onClick={this.cerrarSesion}>Cerrar Sesión</button>
