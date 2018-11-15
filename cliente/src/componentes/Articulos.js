@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import Articulo from './Articulo';
-<<<<<<< HEAD
-import TreeView from 'deni-react-treeview';
-=======
+
 import axios from 'axios';
->>>>>>> 9f82658c63982b69d8f762c5a1342e4cb571070d
 
 class Articulos extends Component {
 
@@ -28,9 +25,6 @@ class Articulos extends Component {
         return (
             <div>
 
-                <div className="left">
-                    <TreeView url="http://localhost:5000/articulos" showRoot={true} />
-                </div> 
                 
                 <div className="center">
                     <h2>Nuestros Articulos</h2>

@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-<<<<<<< HEAD
+
     "deni-react-treeview": "^0.2.12",
-=======
+
     "axios": "^0.18.0",
->>>>>>> 9f82658c63982b69d8f762c5a1342e4cb571070d
+
     "history": "^4.7.2",
     "materialize-css": "^1.0.0-rc.2",
     "react": "^16.6.0",

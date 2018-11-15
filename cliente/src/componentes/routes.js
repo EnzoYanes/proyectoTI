@@ -17,11 +17,11 @@ import AltaRecurso from './AltaRecurso';
 import EditarRecurso from './EditarRecurso';
 import EditarCliente from './EditarCliente';
 import NavBar from './NavBar';
-<<<<<<< HEAD
+
 import Tree from './Tree';
-=======
+
 import SideBar from './SideBar';
->>>>>>> 9f82658c63982b69d8f762c5a1342e4cb571070d
+
 
 const auth = new Auth();
 

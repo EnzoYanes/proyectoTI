@@ -6,10 +6,10 @@ const getCategorias = async (req, res) => {
 };
 
 const addCategoria = async(req, res) => {
-    const {nombre, idPadre} = req.body;
+    const {nombre, idPadre, id, text, isLeaf} = req.body;
     Categoria.findOne({nombre: nombre}, (error, categoria) => {
         if (!categoria) {
-            const categoria = new Categoria({nombre, idPadre});
+            const categoria = new Categoria({nombre, idPadre, id, text, isLeaf});
             categoria.save();
             res.json({ok: true});
         } else {
