@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import dateformat from 'dateformat';
 
 class ComprarSuscripcion extends Component{
 
@@ -32,8 +31,6 @@ class ComprarSuscripcion extends Component{
     getCliente(idUser){
         axios.get(`http://localhost:5000/api/user/${idUser}`)
             .then(res => {
-                let fecha = new Date(res.data.fechaNac.replace('T00','T12'));
-                fecha = dateformat(fecha, 'yyyy-mm-dd');
                 this.setState({
                     username: res.data.username,
                     nombre: res.data.nombre,

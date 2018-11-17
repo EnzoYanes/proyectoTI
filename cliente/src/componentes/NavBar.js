@@ -1,8 +1,22 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import M from "materialize-css";
 import history from '../history';
 
 class NavBar extends Component {
+
+    componentDidMount() {
+        this.cargarDropdown();
+    }
+    
+    cargarDropdown(){
+        let dropdowns = document.querySelectorAll('.dropdown-trigger');
+        let options = {
+            hover: true, // Activate on hover
+            coverTrigger: false, // Displays dropdown below the button
+        };
+        M.Dropdown.init(dropdowns, options);
+    }
 
     cerrarSesion = () => {
         this.props.auth.logout();
@@ -13,12 +27,21 @@ class NavBar extends Component {
         const {isAuthenticated} = this.props.auth
         let resultado;
         if (isAuthenticated()) {
+            let user = this.props.auth.getUser();
             resultado = <div>
-                <Link to={'/comprarSuscripcion'} className="waves-effect waves-light btn">Comp Sus</Link>
-                <Link to={'/editarProveedor'} className="waves-effect waves-light btn">Edit Proveedor</Link>
-                <Link to={'/editarCliente'} className="waves-effect waves-light btn">Edit cliente</Link>
-                <button className="btn" onClick={this.cerrarSesion}>Cerrar Sesión</button>
+                <a href="/" className='dropdown-trigger btn' data-target='dropdown1' style={{width:200}} >{user.username}</a>
+                <ul id='dropdown1' className='dropdown-content'>
+                    <li><a href="/comprarSuscripcion">Comprar suscripción</a></li>
+                    <li><a href="/editarProveedor">Editar proveedor</a></li>
+                    <li><a href="/editarCliente">Editar cliente</a></li>
+                    <li><a href="/altaCategoria">Alta de categoria</a></li>
+                    <li><a href="/suscripciones">Suscripciónes</a></li>
+                    <li><a href="/altaRecurso">Alta de recurso</a></li>
+                    <li className="divider"></li>
+                    <li><a href="/" onClick={this.cerrarSesion}>Cerrar Sesión</a></li>
+                </ul>
             </div>
+            this.cargarDropdown();
         }else{
             resultado = <div>
                 <Link to={'/login'} className="waves-effect waves-light btn">Iniciar sesión</Link>
@@ -30,9 +53,6 @@ class NavBar extends Component {
                 <nav className="nav-wrapper">
                     <ul className="left hide-on-med-and-down">
                         <Link to={'/'} className="btn">Inicio</Link>
-                        <Link to={'/altaCategoria'} className="waves-effect waves-light btn" >Alta Categoría</Link>
-                        <Link to={'/suscripciones'} className="waves-effect waves-light btn" >Suscripciones</Link>
-                        <Link to={'/altaRecurso'} className="waves-effect waves-light btn" >Alta Rec</Link>
                     </ul>
                     <ul className="right hide-on-med-and-down">
                         {resultado}
