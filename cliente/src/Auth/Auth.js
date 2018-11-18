@@ -1,4 +1,5 @@
 import history from '../history';
+import jwt from 'jsonwebtoken';
 
 export default class Auth {
   
@@ -6,7 +7,7 @@ export default class Auth {
     this.logout = this.logout.bind(this);
     this.isAuthenticated = this.isAuthenticated.bind(this);
     this.getAccessToken = this.getAccessToken.bind(this);
-    this.getUserId = this.getUserId.bind(this);
+    this.getUser = this.getUser.bind(this);
   }
 
   getAccessToken() {
@@ -17,20 +18,20 @@ export default class Auth {
     return accessToken;
   }
 
-  getUserId(){
-    const userId = localStorage.getItem('userId');
-    if(!userId){
+  getUser(){
+    if (this.isAuthenticated()) {
+      let token = this.getAccessToken();
+      let payload = jwt.verify(token, 'secret');
+      return payload.user;
+    } else {
       return new Error('Hubo un error al generar el Id');
     }
-    return userId;
   }
 
   setSession(token, usuario) {
     // Set the time that the access token will expire at
-    let expiresAt = JSON.stringify((20 * 60 * 1000) + new Date().getTime());
+    let expiresAt = JSON.stringify((10 * 60 * 1000) + new Date().getTime());
     localStorage.setItem('access_token', token);
-    localStorage.setItem('userId', usuario._id);
-    //localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
     // navigate to the home route
     history.replace('/');
@@ -39,17 +40,22 @@ export default class Auth {
   logout() {
     // Clear access token and ID token from local storage
     localStorage.removeItem('access_token');
-    localStorage.removeItem('userId');
-    //localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     // navigate to the home route
-    history.replace('/');
+    //history.replace('/');
   }
 
   isAuthenticated() {
     // Check whether the current time is past the 
     // access token's expiry time
     let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-    return new Date().getTime() < expiresAt;
+    if (new Date().getTime() < expiresAt) {
+      let newExpiresAt = JSON.stringify((10 * 60 * 1000) + new Date().getTime());
+      localStorage.setItem('expires_at', newExpiresAt);
+      return true;
+    } else {
+      this.logout();
+      return false;
+    }
   }
 }

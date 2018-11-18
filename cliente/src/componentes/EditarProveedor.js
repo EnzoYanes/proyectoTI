@@ -20,8 +20,8 @@ class EditarProveedor extends Component{
     }
 
     componentWillMount(){
-        const idUser = this.props.auth.getUserId();
-        this.getCliente(idUser);
+        const User = this.props.auth.getUser();
+        this.getCliente(User._id);
     }
 
     handleChange(e){
@@ -49,7 +49,7 @@ class EditarProveedor extends Component{
     }
 
     actualizar(e){
-        const idUser = this.props.auth.getUserId();
+        const User = this.props.auth.getUser();
         const cliente = {
             nombre: this.state.nombre,
             apellido: this.state.apellido,
@@ -58,7 +58,7 @@ class EditarProveedor extends Component{
             nombreEmpresa: this.state.nombreEmpresa,
             linkEmpresa: this.state.linkEmpresa
         }
-        axios.put(`http://localhost:5000/api/user/${idUser}`, {cliente})
+        axios.put(`http://localhost:5000/api/user/${User._id}`, {cliente})
             .then(res => {
                 if(res.status === 200){
                     window.M.toast({html: res.data.message});

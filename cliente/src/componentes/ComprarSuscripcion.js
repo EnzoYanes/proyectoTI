@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import dateformat from 'dateformat';
 
-class EditarCliente extends Component{
+class ComprarSuscripcion extends Component{
 
     constructor(props){
         super(props);
@@ -10,7 +9,7 @@ class EditarCliente extends Component{
             username: '',
             nombre: '',
             apellido: '',
-            fechaNac: '',
+            categoria: '',
             correo: ''
         };
         this.handleChange = this.handleChange.bind(this);
@@ -32,13 +31,11 @@ class EditarCliente extends Component{
     getCliente(idUser){
         axios.get(`http://localhost:5000/api/user/${idUser}`)
             .then(res => {
-                let fecha = new Date(res.data.fechaNac.replace('T00','T12'));
-                fecha = dateformat(fecha, 'yyyy-mm-dd');
                 this.setState({
                     username: res.data.username,
                     nombre: res.data.nombre,
                     apellido: res.data.apellido,
-                    fechaNac: fecha,
+                    categoria: res.data.categoria,
                     correo: res.data.correo
                 })
             })
@@ -47,10 +44,7 @@ class EditarCliente extends Component{
     actualizar(e){
         const User = this.props.auth.getUser();
         const cliente = {
-            nombre: this.state.nombre,
-            apellido: this.state.apellido,
-            fechaNac: this.state.fechaNac,
-            correo: this.state.correo
+            categoria: this.state.categoria
         }
         axios.put(`http://localhost:5000/api/user/${User._id}`, {cliente})
             .then(res => {
@@ -69,14 +63,18 @@ class EditarCliente extends Component{
         return(
             <div className="container">
                 <div className="row">
-                    <h1>Actualizar datos de Cliente</h1>
+                    <h1>Cambiar suscripción</h1>
                     <div className="col s5">
                         <form onSubmit={this.actualizar}>
-                            <input name="username" value={this.state.username} onChange={this.handleChange} type="text" disabled={true} />
-                            <input name="nombre" value={this.state.nombre} onChange={this.handleChange} type="text" placeholder="Nombre" required />
-                            <input name="apellido" value={this.state.apellido} onChange={this.handleChange} type="text" placeholder="Apellido" required />
-                            <input name="fechaNac" value={this.state.fechaNac} onChange={this.handleChange} type="date" required />
-                            <input name="correo" value={this.state.correo} onChange={this.handleChange} type="text" placeholder="Correo electrónico" required />
+                            <input name="username" value={this.state.username} type="text" disabled={true} />
+                            <input name="nombre" value={this.state.nombre} type="text" disabled={true} />
+                            <input name="apellido" value={this.state.apellido} type="text" disabled={true} />
+                            <select name="categoria" value={this.state.categoria} onChange={this.handleChange} className="browser-default">
+                                <option value="Free">Free</option>
+                                <option value="Silver">Silver</option>
+                                <option value="Gold">Gold</option>
+                            </select>
+                            <input name="correo" value={this.state.correo} type="text" disabled={true} />
                             
                             <button type="submit" className="btn light-blue darken-4">Guardar</button>
                         </form>
@@ -89,4 +87,4 @@ class EditarCliente extends Component{
     }
 }
 
-export default EditarCliente;
+export default ComprarSuscripcion;
