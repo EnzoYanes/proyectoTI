@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class Suscripciones extends Component {
 
@@ -11,7 +12,7 @@ class Suscripciones extends Component {
             suscripciones:[]
         }
         this.handleChange = this.handleChange.bind(this);
-        this.addSuscripcion = this.addSuscripcion.bind(this);
+        this.updateSuscripcion = this.updateSuscripcion.bind(this);
     }
 
     componentDidMount(){
@@ -27,45 +28,21 @@ class Suscripciones extends Component {
     }
 
     getSuscripciones(){
-        fetch('http://localhost:5000/api/suscripcion/')
-            .then(res => res.json())
-            .then(data => {
-                this.setState({suscripciones: data});
+        axios.get('http://localhost:5000/api/suscripcion/')
+            .then(res => {
+                this.setState({suscripciones: res.data});
             })
     }
 
-    addSuscripcion(e){
+    updateSuscripcion(e){
         if (this.state._id){
-            fetch(`http://localhost:5000/api/suscripcion/${this.state._id}`,{
-                method: 'PUT',
-                body: JSON.stringify(this.state),
-                headers:{
-                    'Accept': 'application/jason',
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(res => res.json())
-            .then(data => {
+            const precio = this.state.precio;
+            axios.put(`http://localhost:5000/api/suscripcion/${this.state._id}`,{precio})
+            .then(res => {
                 window.M.toast({html: 'Suscripcion actualizada'});
                 this.setState({_id:'', nombre:'', precio:''})
                 this.getSuscripciones();
             })
-        }else{
-            fetch('http://localhost:5000/api/suscripcion/', {
-                method: 'POST',
-                body: JSON.stringify(this.state),
-                headers:{
-                    'Accept': 'application/jason',
-                    'Content-Type': 'application/json'
-                }
-            })
-                .then(res => res.json())
-                .then(data => {
-                    window.M.toast({html: 'Suscripcion guardada'});
-                    this.setState({nombre: '',precio:''});
-                    this.getSuscripciones();
-                })
-                .catch(err => console.error(err));
         }
         e.preventDefault();
     }
@@ -90,10 +67,10 @@ class Suscripciones extends Component {
                         <div className="col s5">
                             <div className="card">
                                 <div className="card-content">
-                                    <form onSubmit={this.addSuscripcion}>
+                                    <form onSubmit={this.updateSuscripcion}>
                                         <div className="row">
                                             <div className="input-field col s12">
-                                                <input name="nombre" value={this.state.nombre} onChange={this.handleChange} type="text" placeholder="Nombre" />
+                                                <input name="nombre" value={this.state.nombre}  type="text" disabled={true} />
                                             </div>
                                             <div className="row">
                                                 <div className="input-field col s12">
@@ -102,7 +79,7 @@ class Suscripciones extends Component {
                                             </div>
                                         </div>
                                         <button type="submit" className="btn light-blue darken-4">
-                                            Enviar
+                                            Actualizar
                                         </button>
                                     </form>
                                 </div>

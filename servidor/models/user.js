@@ -11,9 +11,10 @@ const UserSchema = new Schema({
     fechaNac: Date,
     correo: String,
     tipo: String,
-    categoria: String,
+    suscripcion: Number,
     nombreEmpresa: String,
-    linkEmpresa: String
+    linkEmpresa: String,
+    recursos: [{ type : mongoose.Schema.Types.ObjectId, ref: 'recurso' }]
 });
 
 UserSchema.pre('save', function(next) {

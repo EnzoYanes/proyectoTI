@@ -7,9 +7,10 @@ const RecursoSchema = new Schema({
     descripcion: String,
     imagen: String,
     tipo: String,
-    suscripcionReq: String,
+    suscripcion: Number,
     descargable: Boolean,
-    archivo: String
+    archivo: String,
+    clientes: [{type: mongoose.Schema.Types.ObjectId, ref:'user'}]
 });
 
 module.exports = mongoose.model('recurso', RecursoSchema);

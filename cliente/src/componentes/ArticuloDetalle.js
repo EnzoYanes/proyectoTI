@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import axios from 'axios';
 
 class ArticuloDetalle extends Component {
 
@@ -25,6 +26,14 @@ class ArticuloDetalle extends Component {
             })
     }
 
+    obtenerRecurso = () => {
+        const idRecurso = this.state.articulo._id;
+        const idUser = this.state.idUser;
+        axios.post(`http://localhost:5000/api/user/addRecurso/${this.state.idUser}`, {idRecurso});
+        axios.post(`http://localhost:5000/api/recurso/addCliente/${idRecurso}`,{idUser});
+        window.M.toast({html: 'Recurso obtenido'});
+    }
+
     render() {
         //if(!props.articulo) return null;
         const {isAuthenticated} = this.props.auth;
@@ -37,7 +46,8 @@ class ArticuloDetalle extends Component {
                         <img src={`../img/camisa_8.png`} alt={this.state.articulo.nombre} />
                         <p><b>Nombre:</b> {this.state.articulo.nombre}</p>
                         <p><b>Descripcion:</b> {this.state.articulo.descripcion}</p>
-                        <p><b>Suscripcion:</b> {this.state.articulo.suscripcionReq}</p>
+                        <p><b>Suscripcion:</b> {this.state.articulo.suscripcion}</p>
+                        <button className="btn" onClick={this.obtenerRecurso}>Obtener</button>
                     </div>
                 )}
                 

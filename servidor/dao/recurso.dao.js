@@ -16,7 +16,7 @@ const addRecurso = async(req, res) => {
         descripcion,
         imagen,
         tipo,
-        suscripcionReq,
+        suscripcion,
         descargable,
         archivo} = req.body;
     Recurso.findOne({nombre: nombre}, (error, rec) => {
@@ -26,7 +26,7 @@ const addRecurso = async(req, res) => {
                 descripcion,
                 imagen,
                 tipo,
-                suscripcionReq,
+                suscripcion,
                 descargable,
                 archivo});
             recurso.save();
@@ -42,9 +42,17 @@ const updateRecurso = async(req, res) => {
     res.json({status: 'Recurso actualizado'});
 };
 
+const addCliente = async(req, res) => {
+    const recurso = await Recurso.findById(req.params.id);
+    recurso.clientes.push(req.body.idUser);
+    recurso.save();
+    res.json({message: 'Cliente agergado'});
+};
+
 module.exports={
     getRecursos,
     getRecurso,
     addRecurso,
-    updateRecurso
+    updateRecurso,
+    addCliente
 };

@@ -9,7 +9,7 @@ class ComprarSuscripcion extends Component{
             username: '',
             nombre: '',
             apellido: '',
-            categoria: '',
+            suscripcion: '',
             correo: ''
         };
         this.handleChange = this.handleChange.bind(this);
@@ -35,7 +35,7 @@ class ComprarSuscripcion extends Component{
                     username: res.data.username,
                     nombre: res.data.nombre,
                     apellido: res.data.apellido,
-                    categoria: res.data.categoria,
+                    suscripcion: res.data.suscripcion,
                     correo: res.data.correo
                 })
             })
@@ -44,7 +44,7 @@ class ComprarSuscripcion extends Component{
     actualizar(e){
         const User = this.props.auth.getUser();
         const cliente = {
-            categoria: this.state.categoria
+            suscripcion: this.state.suscripcion
         }
         axios.put(`http://localhost:5000/api/user/${User._id}`, {cliente})
             .then(res => {
@@ -69,10 +69,10 @@ class ComprarSuscripcion extends Component{
                             <input name="username" value={this.state.username} type="text" disabled={true} />
                             <input name="nombre" value={this.state.nombre} type="text" disabled={true} />
                             <input name="apellido" value={this.state.apellido} type="text" disabled={true} />
-                            <select name="categoria" value={this.state.categoria} onChange={this.handleChange} className="browser-default">
-                                <option value="Free">Free</option>
-                                <option value="Silver">Silver</option>
-                                <option value="Gold">Gold</option>
+                            <select name="suscripcion" value={this.state.suscripcion} onChange={this.handleChange} className="browser-default">
+                                <option value="1">Free</option>
+                                <option value="2">Silver</option>
+                                <option value="3">Gold</option>
                             </select>
                             <input name="correo" value={this.state.correo} type="text" disabled={true} />
                             

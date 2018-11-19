@@ -11,7 +11,7 @@ class EditarRecurso extends Component {
             descripcion: '',
             imagen: '',
             tipo: '',
-            suscripcionReq: '',
+            suscripcion: '',
             descargable: false,
             archivo: '',
             categorias: []
@@ -48,7 +48,7 @@ class EditarRecurso extends Component {
                     descripcion: res.data.descripcion,
                     imagen: res.data.imagen,
                     tipo: res.data.tipo,
-                    suscripcionReq: res.data.suscripcionReq,
+                    suscripcion: res.data.suscripcion,
                     descargable: res.data.descargable,
                     archivo: res.data.archivo
                 })
@@ -62,7 +62,7 @@ class EditarRecurso extends Component {
             descripcion: this.state.descripcion,
             imagen: this.state.imagen,
             tipo: this.state.tipo,
-            suscripcionReq: this.state.suscripcionReq,
+            suscripcion: this.state.suscripcion,
             descargable: this.state.descargable,
             archivo: this.state.archivo
         }
@@ -105,7 +105,7 @@ class EditarRecurso extends Component {
                                 <option value="Libro">Libro</option>
                                 <option value="Video">Video</option>
                             </select>
-                            <select name="suscripcionReq" value={this.state.suscripcionReq} onChange={this.handleChange} className="browser-default">
+                            <select name="suscripcion" value={this.state.suscripcionReq} onChange={this.handleChange} className="browser-default">
                                 <option value="">Suscripción requerida</option>
                                 <option value="Free">Free</option>
                                 <option value="Silver">Silver</option>

@@ -10,4 +10,6 @@ router.post('/', recurso.addRecurso);
 
 router.put('/:id', recurso.updateRecurso);
 
+router.post('/addCliente/:id', recurso.addCliente);
+
 module.exports = router;

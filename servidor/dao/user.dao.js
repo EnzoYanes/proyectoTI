@@ -9,13 +9,13 @@ const register = async(req, res) => {
         fechaNac, 
         correo, 
         tipo, 
-        categoria, 
+        suscripcion, 
         nombreEmpresa, 
         linkEmpresa 
     } = req.body;
     User.findOne({username: username}, (error, usuario) => {
         if (!usuario) {
-            const user = new User({username, password, nombre, apellido, fechaNac, correo, tipo, categoria, nombreEmpresa, linkEmpresa});
+            const user = new User({username, password, nombre, apellido, fechaNac, correo, tipo, suscripcion, nombreEmpresa, linkEmpresa});
             user.save();
             res.json({ok: true});
         } else {
@@ -44,7 +44,7 @@ const login = (req, res) => {
 };
 
 const getUser = async (req,res) => {
-    const usuario = await User.findById(req.params.id);
+    const usuario = await User.findById(req.params.id).populate('recursos');
     res.json(usuario);
 };
 
@@ -53,9 +53,17 @@ const putUser = async(req, res) => {
     res.json({message: 'Usuario actualizado'});
 };
 
+const addRecursoToUser = async(req, res) => {
+    const usuario = await User.findById(req.params.id);
+    usuario.recursos.push(req.body.idRecurso);
+    usuario.save();
+    res.json({message: 'Recurso agregado'});
+}
+
 module.exports = {
     register,
     login,
     getUser,
-    putUser
+    putUser,
+    addRecursoToUser
 };

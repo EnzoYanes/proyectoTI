@@ -11,16 +11,14 @@ const getSuscripcion = async (req,res) => {
 };
 
 const addSuscripcion = async(req, res) => {
-    const {nombre, precio} = req.body;
-    const suscripcion = new Suscripcion({nombre, precio});
+    const {_id, nombre, precio} = req.body.item;
+    const suscripcion = new Suscripcion({_id, nombre, precio});
     await suscripcion.save();
     res.json({status: 'Suscription Saved'});
 }
 
 const updateSuscripcion = async(req, res) => {
-    const { nombre, precio } = req.body;
-    const newSuscripcion = {nombre, precio};
-    await Suscripcion.findByIdAndUpdate(req.params.id, newSuscripcion);
+    await Suscripcion.findByIdAndUpdate(req.params.id, req.body);
     res.json({status: 'Suscription Updated'});
 };
 

@@ -10,7 +10,7 @@ class AltaRecurso extends Component {
             descripcion: '',
             imagen: '',
             tipo: '',
-            suscripcionReq: '',
+            suscripcion: '',
             descargable: false,
             archivo: '',
             categorias: []
@@ -59,7 +59,7 @@ class AltaRecurso extends Component {
                     descripcion: '',
                     imagen: '',
                     tipo: '',
-                    suscripcionReq: '',
+                    suscripcion: '',
                     descargable: false,
                     archivo: '',
                     categorias: []});
@@ -96,7 +96,7 @@ class AltaRecurso extends Component {
                                 <option value="Libro">Libro</option>
                                 <option value="Video">Video</option>
                             </select>
-                            <select name="suscripcionReq" value={this.state.suscripcionReq} onChange={this.handleChange} className="browser-default">
+                            <select name="suscripcion" value={this.state.suscripcionReq} onChange={this.handleChange} className="browser-default">
                                 <option value="">Suscripción requerida</option>
                                 <option value="Free">Free</option>
                                 <option value="Silver">Silver</option>

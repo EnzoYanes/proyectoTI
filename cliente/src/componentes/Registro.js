@@ -13,7 +13,7 @@ class Registro extends Component{
             fechaNac: '',
             correo: '',
             tipo: '',
-            categoria: '',
+            suscripcion: '',
             nombreEmpresa: '',
             linkEmpresa: ''
         };
@@ -69,11 +69,11 @@ class Registro extends Component{
                             <input name="apellido" value={this.state.apellido} onChange={this.handleChange} type="text" placeholder="Apellido" required />
                             <input name="fechaNac" value={this.state.fechaNac} onChange={this.handleChange} type="date" required />
                             <input name="correo" value={this.state.correo} onChange={this.handleChange} type="text" placeholder="Correo electrónico" required />
-                            <select name="categoria" value={this.state.categoria} onChange={this.handleChange} className="browser-default">
-                                <option value="">Seleccione categoría</option>
-                                <option value="Free">Free</option>
-                                <option value="Silver">Silver</option>
-                                <option value="Gold">Gold</option>
+                            <select name="suscripcion" value={this.state.categoria} onChange={this.handleChange} className="browser-default">
+                                <option value="">Seleccione suscripción</option>
+                                <option value="1">Free</option>
+                                <option value="2">Silver</option>
+                                <option value="3">Gold</option>
                             </select>
                             <input name="nombreEmpresa" value={this.state.nombreEmpresa} onChange={this.handleChange} type="text" placeholder="Nombre de la Empresa" />
                             <input name="linkEmpresa" value={this.state.linkEmpresa} onChange={this.handleChange} type="text" placeholder="Link de la Empresa" />

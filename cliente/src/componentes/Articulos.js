@@ -10,6 +10,23 @@ class Articulos extends Component {
 
     componentWillMount(){
         this.queryAPI();
+        this.CrearSuscripciones();
+    }
+
+    CrearSuscripciones = () => {
+        axios.get('http://localhost:5000/api/suscripcion')
+            .then(res => {
+                if (res.data.length === 0) {
+                    const suscripciones = [
+                        {_id: 1, nombre: 'Free', precio: 0},
+                        {_id: 2, nombre: 'Silver', precio: 5},
+                        {_id: 3, nombre: 'Gold', precio: 10}
+                    ];
+                    suscripciones.map(item => (
+                        axios.post('http://localhost:5000/api/suscripcion/',{item})
+                    ));
+                }
+            })
     }
 
     queryAPI = () => {
