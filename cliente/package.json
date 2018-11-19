@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "dateformat": "^3.0.3",
+    "deni-react-treeview": "^0.2.12",
     "history": "^4.7.2",
     "jsonwebtoken": "^8.3.0",
     "materialize-css": "^1.0.0-rc.2",

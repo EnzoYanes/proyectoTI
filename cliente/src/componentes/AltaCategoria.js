@@ -6,7 +6,7 @@ class AltaCategoria extends Component {
         super(props);
         this.state = {
             nombre:'',
-            idPadre:'',
+            nombrePadre:'',
             categorias:[]
         }
         this.handleChange = this.handleChange.bind(this);
@@ -34,7 +34,7 @@ class AltaCategoria extends Component {
     }
 
     addCategoria(e){
-        fetch('http://localhost:5000/api/categoria/', {
+        fetch('http://localhost:5000/api/categoria/'+this.state.nombrePadre, {
             method: 'POST',
             body: JSON.stringify(this.state),
             headers:{
@@ -64,12 +64,12 @@ class AltaCategoria extends Component {
                     <div className="col s5">
                         <h4>Alta categoria</h4>
                         <form onSubmit={this.addCategoria}>
-                            <select name="idPadre" value={this.state.tipo} onChange={this.handleChange} className="browser-default">
+                            <select name="nombrePadre" value={this.state.nombrePadre} onChange={this.handleChange} className="browser-default">
                                 <option value="">Seleccione padre</option>
                                 {
                                     this.state.categorias.map(cat => {
                                         return(
-                                            <option key={cat._id} value={cat._id}>{cat.nombre}</option>
+                                            <option key={cat._id} value={cat.nombre}>{cat.nombre}</option>
                                         )
                                     })
                                 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Articulo from './Articulo';
+
 import axios from 'axios';
 
 class Articulos extends Component {
@@ -39,6 +40,7 @@ class Articulos extends Component {
 
     render() {
         return (
+  
             <React.Fragment>
                 <h2 className="center">Nuestros Articulos</h2>
                 <div className="row">

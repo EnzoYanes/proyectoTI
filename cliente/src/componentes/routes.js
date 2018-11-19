@@ -19,7 +19,11 @@ import EditarCliente from './EditarCliente';
 import EditarProveedor from './EditarProveedor';
 import ComprarSuscripcion from './ComprarSuscripcion';
 import NavBar from './NavBar';
+
+import Tree from './Tree';
+
 import SideBar from './SideBar';
+
 
 const auth = new Auth();
 
@@ -74,6 +78,8 @@ export const makeMainRoutes = () => {
                         />
                     ) } />
                 </div>
+
+                <Route path="/tree" component={Tree}/>
 
             </div>
         </Router>
