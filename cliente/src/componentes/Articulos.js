@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Articulo from './Articulo';
-
 import axios from 'axios';
 
 class Articulos extends Component {
