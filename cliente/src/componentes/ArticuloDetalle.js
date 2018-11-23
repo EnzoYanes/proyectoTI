@@ -7,35 +7,53 @@ class ArticuloDetalle extends Component {
     constructor(props){
         super(props);
         this.state = {
-            articulo: ''
+            articulo: '',
+            clientes: [],
+            user: ''
         }
     }
 
     componentWillMount(){
-        this.getArticulo();
+        this.getDatos();
     }
 
-    getArticulo = () => {
+    getDatos = () => {
         const idArticulo = this.props.location.pathname.replace('/articulo/', '');
+        const userToken = this.props.auth.getUser();
         fetch(`http://localhost:5000/api/recurso/${idArticulo}`)
             .then(res => res.json())
             .then(data => {
                 this.setState({
-                    articulo: data
+                    articulo: data,
+                    clientes: data.clientes
+                })
+            })
+        axios.get(`http://localhost:5000/api/user/${userToken._id}`)
+            .then(res => {
+                this.setState({
+                    user: res.data
                 })
             })
     }
 
     obtenerRecurso = () => {
-        const idRecurso = this.state.articulo._id;
-        const idUser = this.state.idUser;
-        axios.post(`http://localhost:5000/api/user/addRecurso/${this.state.idUser}`, {idRecurso});
-        axios.post(`http://localhost:5000/api/recurso/addCliente/${idRecurso}`,{idUser});
-        window.M.toast({html: 'Recurso obtenido'});
+
+        if (this.state.user.suscripcion >= this.state.articulo.suscripcion) {
+            const idRecurso = this.state.articulo._id;
+            const idUser = this.state.user._id;
+            axios.post(`http://localhost:5000/api/user/addRecurso/${idUser}`, {idRecurso});
+            axios.post(`http://localhost:5000/api/recurso/addCliente/${idRecurso}`,{idUser});
+            window.M.toast({html: 'Recurso obtenido'});
+        } else {
+            window.M.toast({html: 'No cumple la suscripción requerida'});
+        }
+    }
+
+    tieneRecurso = () => {
+        return this.state.clientes.some(c => c === this.state.user._id);
     }
 
     render() {
-        //if(!props.articulo) return null;
         const {isAuthenticated} = this.props.auth;
 
         return (
@@ -46,8 +64,12 @@ class ArticuloDetalle extends Component {
                         <img src={`../img/camisa_8.png`} alt={this.state.articulo.nombre} />
                         <p><b>Nombre:</b> {this.state.articulo.nombre}</p>
                         <p><b>Descripcion:</b> {this.state.articulo.descripcion}</p>
-                        <p><b>Suscripcion:</b> {this.state.articulo.suscripcion}</p>
-                        <button className="btn" onClick={this.obtenerRecurso}>Obtener</button>
+                        { !this.tieneRecurso() && (
+                            <React.Fragment>
+                                <p><b>Suscripcion:</b> {this.state.articulo.suscripcion}</p>
+                                <button className="btn" onClick={this.obtenerRecurso}>Obtener</button>
+                            </React.Fragment>
+                        )}
                     </div>
                 )}
                 
