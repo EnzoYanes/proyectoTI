@@ -69,8 +69,6 @@ class ArticuloDetalle extends Component {
 
     render() {
         const {isAuthenticated} = this.props.auth;
-       //lo que hace aca es tomar el valor pasado por parametro a la url.
-       let idArticulo = "clic en la description " + this.props.location.pathname.replace('/articulo/', '');
 
 
         return (
