@@ -24,6 +24,7 @@
     "mongoose": "^5.3.9",
     "mongoose-sequence": "^4.0.1",
     "nodemon": "^1.18.5",
+    "nodemailer-smtp-transport": "^2.7.4",
     "npm": "^6.4.1"
   }
 }

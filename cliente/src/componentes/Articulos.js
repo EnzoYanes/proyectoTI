@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import Articulo from './Articulo';
 import axios from 'axios';
 
+
+
+const estiloTabla = {
+        background : "green",
+        
+}
+
 class Articulos extends Component {
 
     state = {
@@ -39,18 +46,25 @@ class Articulos extends Component {
 
     render() {
         return (
-  
-            <React.Fragment>
-                <h2 className="center">Nuestros Articulos</h2>
-                <div className="row">
+            <div >
+                  <div>
+                    <video src={`img/video.mp4#t=,3`} controls style={{width: '30%', height: '50%'}} />
+                    </div>
+                    
+                    <audio src={`img/audio.mp3#t=33,37`} controls autoPlay />
+
+                <h2 style={{estiloTabla}}>Nuestros Articulos</h2>
                     {Object.keys(this.state.articulos).map(articulo => (
-                        <Articulo
-                            informacion={this.state.articulos[articulo]}
-                            key={articulo}
-                        />
-                    ))}
-                </div>
-            </React.Fragment>
+                        <ul style={{background:'blue', width: '30%', position:'inherit'}}>
+                                
+                            <Articulo
+                                informacion={this.state.articulos[articulo]}
+                                key={articulo}
+                            />
+                        </ul>
+                        
+                    ))}           
+            </div>
         );
     }
 }
