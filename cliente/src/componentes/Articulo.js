@@ -2,14 +2,18 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 const Articulo = (props) => {
-    const {imagen, nombre, precio, id} = props.informacion;
+    const {nombre, _id} = props.informacion;
     return (
-        <li>
-            <img src={`img/${imagen}.png`} alt={nombre} />
-            <p>{nombre} <span> $ {precio}</span></p>
-            <Link to={`/articulo/${id}`} className="btn">Más Información</Link>
-            
-        </li>
+        <div className="col 3">
+            <div className="card">
+                <img src={`img/camisa_8.png`} alt={nombre} />
+                <div className="card-content">
+                    <p>{nombre}</p>
+                    <Link to={`/articulo/${_id}`} className="btn">Más Información</Link>
+                    <Link to={`/editarRecurso/${_id}`} className="btn">Editar</Link>
+                </div>
+            </div>
+        </div>
     );
 };
 

@@ -6,7 +6,15 @@ SALT_WORK_FACTOR = 10;
 const UserSchema = new Schema({
     username: { type: String, required: true },
     password: { type: String, required: true },
-    confirmacion: { type: String, required: true }
+    nombre: String,
+    apellido: String,
+    fechaNac: Date,
+    correo: String,
+    tipo: String,
+    suscripcion: Number,
+    nombreEmpresa: String,
+    linkEmpresa: String,
+    recursos: [{ type : mongoose.Schema.Types.ObjectId, ref: 'recurso' }]
 });
 
 UserSchema.pre('save', function(next) {
@@ -15,7 +23,6 @@ UserSchema.pre('save', function(next) {
     user.password = bcrypt.hashSync(user.password, SALT_WORK_FACTOR);
     next();
 })
-
 
 
 UserSchema.methods.comparePassword = function(password){

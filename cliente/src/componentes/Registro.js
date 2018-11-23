@@ -7,7 +7,15 @@ class Registro extends Component{
         super(props);
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            nombre: '',
+            apellido: '',
+            fechaNac: '',
+            correo: '',
+            tipo: '',
+            suscripcion: '',
+            nombreEmpresa: '',
+            linkEmpresa: ''
         };
         this.handleChange = this.handleChange.bind(this);
         this.addUser = this.addUser.bind(this);
@@ -50,8 +58,25 @@ class Registro extends Component{
                     <div className="col s5">
                         <h1>Registro</h1>
                         <form onSubmit={this.addUser}>
-                            <input name="username" value={this.state.username} onChange={this.handleChange} type="text" placeholder="username" required />
-                            <input name="password" value={this.state.password} onChange={this.handleChange} type="password" placeholder="password" required/>
+                            <select name="tipo" value={this.state.tipo} onChange={this.handleChange} className="browser-default">
+                                <option value="">Seleccione tipo</option>
+                                <option value="Cliente">Cliente</option>
+                                <option value="Proveedor">Proveedor</option>
+                            </select>
+                            <input name="username" value={this.state.username} onChange={this.handleChange} type="text" placeholder="Nick" required />
+                            <input name="password" value={this.state.password} onChange={this.handleChange} type="password" placeholder="Contraseña" required/>
+                            <input name="nombre" value={this.state.nombre} onChange={this.handleChange} type="text" placeholder="Nombre" required />
+                            <input name="apellido" value={this.state.apellido} onChange={this.handleChange} type="text" placeholder="Apellido" required />
+                            <input name="fechaNac" value={this.state.fechaNac} onChange={this.handleChange} type="date" required />
+                            <input name="correo" value={this.state.correo} onChange={this.handleChange} type="text" placeholder="Correo electrónico" required />
+                            <select name="suscripcion" value={this.state.categoria} onChange={this.handleChange} className="browser-default">
+                                <option value="">Seleccione suscripción</option>
+                                <option value="1">Free</option>
+                                <option value="2">Silver</option>
+                                <option value="3">Gold</option>
+                            </select>
+                            <input name="nombreEmpresa" value={this.state.nombreEmpresa} onChange={this.handleChange} type="text" placeholder="Nombre de la Empresa" />
+                            <input name="linkEmpresa" value={this.state.linkEmpresa} onChange={this.handleChange} type="text" placeholder="Link de la Empresa" />
 
                             <button type="submit" className="btn light-blue darken-4">Crear</button>
                             <Link to={`/`} className="btn light-blue darken-4 right" >Inicio</Link>

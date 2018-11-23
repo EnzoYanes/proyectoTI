@@ -1,32 +1,13 @@
 import history from '../history';
-//import auth0 from 'auth0-js';
-//import { AUTH_CONFIG } from './auth0-variables';
+import jwt from 'jsonwebtoken';
 
 export default class Auth {
   
   constructor() {
-    this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
-    this.handleAuthentication = this.handleAuthentication.bind(this);
     this.isAuthenticated = this.isAuthenticated.bind(this);
     this.getAccessToken = this.getAccessToken.bind(this);
-  }
-
-  login() {
-    this.props.history.push("/login");
-  }
-
-  handleAuthentication() {
-    this.auth0.parseHash((err, authResult) => {
-      if (authResult && authResult.accessToken && authResult.idToken) {
-        this.setSession(authResult);
-        history.replace('/productos');
-      } else if (err) {
-        history.replace('/productos');
-        console.log(err);
-        alert(`Error: ${err.error}. Check the console for further details.`);
-      }
-    });
+    this.getUser = this.getUser.bind(this);
   }
 
   getAccessToken() {
@@ -37,11 +18,20 @@ export default class Auth {
     return accessToken;
   }
 
-  setSession(token) {
+  getUser(){
+    if (this.isAuthenticated()) {
+      let token = this.getAccessToken();
+      let payload = jwt.verify(token, 'secret');
+      return payload.user;
+    } else {
+      return new Error('Hubo un error al generar el Id');
+    }
+  }
+
+  setSession(token, usuario) {
     // Set the time that the access token will expire at
-    let expiresAt = JSON.stringify((5 * 60 * 1000) + new Date().getTime());
+    let expiresAt = JSON.stringify((10 * 60 * 1000) + new Date().getTime());
     localStorage.setItem('access_token', token);
-    //localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
     // navigate to the home route
     history.replace('/');
@@ -50,16 +40,22 @@ export default class Auth {
   logout() {
     // Clear access token and ID token from local storage
     localStorage.removeItem('access_token');
-    //localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     // navigate to the home route
-    history.replace('/');
+    //history.replace('/');
   }
 
   isAuthenticated() {
     // Check whether the current time is past the 
     // access token's expiry time
     let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-    return new Date().getTime() < expiresAt;
+    if (new Date().getTime() < expiresAt) {
+      let newExpiresAt = JSON.stringify((10 * 60 * 1000) + new Date().getTime());
+      localStorage.setItem('expires_at', newExpiresAt);
+      return true;
+    } else {
+      this.logout();
+      return false;
+    }
   }
 }

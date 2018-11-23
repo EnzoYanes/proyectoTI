@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Articulo from './Articulo';
-
+import axios from 'axios';
 
 
 
@@ -17,18 +17,30 @@ class Articulos extends Component {
 
     componentWillMount(){
         this.queryAPI();
+        this.CrearSuscripciones();
+    }
+
+    CrearSuscripciones = () => {
+        axios.get('http://localhost:5000/api/suscripcion')
+            .then(res => {
+                if (res.data.length === 0) {
+                    const suscripciones = [
+                        {_id: 1, nombre: 'Free', precio: 0},
+                        {_id: 2, nombre: 'Silver', precio: 5},
+                        {_id: 3, nombre: 'Gold', precio: 10}
+                    ];
+                    suscripciones.map(item => (
+                        axios.post('http://localhost:5000/api/suscripcion/',{item})
+                    ));
+                }
+            })
     }
 
     queryAPI = () => {
-        //console.log(this.props.auth.getAccessToken());
-        //const {getAccessToken} = this.props.auth;
-        //const headers = {'Authorization': `Bearer ${getAccessToken()}`};
-        const url = 'http://localhost:5000/articulos';
-
-        fetch(url)
-            .then(res => res.json())
-            .then(data => {
-                this.setState({articulos: data})
+        const url = 'http://localhost:5000/api/recurso';
+        axios.get(url)
+            .then(res => {
+                this.setState({articulos: res.data})
             })
     }
 

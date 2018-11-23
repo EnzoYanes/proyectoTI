@@ -1,53 +1,29 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-const fileUpload = require('express-fileupload')
-
-
-const confirmar = (req,res) => {
-    let id =req.params.id;
-    console.log('Paso 0 Existe user id es -> ', id);
-    User.findOne({_id: id}, (error, usuario) => {
-        if(error) throw error;
-        if (usuario) {
-            console.log('Paso 1 Existe user');
-            if (usuario.confirmacion === 'N'){
-                console.log('Paso 2 Lee bien el campo y es "N" ');
-                let conf = update(id);
-                if(conf === 'S'){
-                    console.log('Paso 5 Salio del UPDATE y entro cnof con "S"');
-                    return res.json({status: 'Todo ok'})
-                }
-                else{
-                    return res.json({status: 'Algo salio mal al intentar confirmar usuario'})
-                }
-                
-            }else{
-                return res.json({status: 'Usuario o contraseña incorrecto'});
-            }
-        } else {
-            return res.json({status: 'Usuario o contraseña incorrecto'});
-        }
-    })
-
-}
 
 const register = async(req, res) => {
-    const { username, password} = req.body;
+    const { username, 
+        password, 
+        nombre, 
+        apellido, 
+        fechaNac, 
+        correo, 
+        tipo, 
+        suscripcion, 
+        nombreEmpresa, 
+        linkEmpresa 
+    } = req.body;
     User.findOne({username: username}, (error, usuario) => {
-        if(error) throw error;
         if (!usuario) {
-            console.log("PASO -> 1 <-");
-            let confirmacion = "N";
-            const user = new User({username, password, confirmacion});
+            const user = new User({username, password, nombre, apellido, fechaNac, correo, tipo, suscripcion, nombreEmpresa, linkEmpresa});
             user.save();
             res.json({ok: true});
-
-            //se consulta nuevamente la base de datos para ver si quedo bien registrado y para sacar el id
-            let idconf;
-            User.findOne({username: username}, (error, usu) => {
-                if (usuario) {
-                    console.log("PASO   -> 2 <-");
-                    idconf = usu._id;
+        } else {
+            res.json({status: "Existe otro usuario con mismo nombre"});
+        }
+    })
+    
+};
 
                     // //envio de email
                     // const nodemailer = require('nodemailer');
@@ -94,78 +70,45 @@ const register = async(req, res) => {
                     //     });
                     // });
 
-                }
-                else{
-                    return res.json({status: 'El usuario no fue creado'});
-                }
-            })
-
-        } else {
-            res.json({status: "Existe otro usuario con mismo nombre"});
-        }
-    })
-    
-};
-
-
 const login = (req, res) => {
-        const { username, password} = req.body;
+    const { username, password} = req.body;
     User.findOne({username: username}, (error, usuario) => {
         if(error) throw error;
         if (usuario) {
             if (usuario.comparePassword(password)){
                 //return res.setHeader('Authorization', 'Bearer ' + utils.createToken(usuario));
-                return res.json({token: jwt.sign({user: usuario}, 'secret')});
+                return res.json({token: jwt.sign({user: usuario}, 'secret'),
+                    user: usuario});
             }else{
-                return res.json({status: 'Usuario o contraseña incorrecto'});
+                return res.json({status: 'Contraseña incorrecta'});
             }
         } else {
-            return res.json({status: 'Usuario o contraseña incorrecto'});
+            return res.json({status: 'Usuario incorrecto'});
         }
     })
 };
 
-function update(id){
-    console.log('Paso 3 Entro al update');
-    User.findOne({_id: id}, (error, usuario) => {
-        if(error) throw error;
-        if (usuario) {
-            console.log('Paso 4 Encontro al usu en UPDATE');
-            let con = "S";
-            const user = new User({username, password, con});
-            User.findByIdAndUpdate(id, user);
-            return confirmacion;
-            }
-        else{
-            return confirmacion;
-            }
-        })
-}
-
-
-const updateTask = async(req, res) => {
-    const { title, description } = req.body;
-    const newTask = {title,description};
-    await Task.findByIdAndUpdate(req.params.id, newTask);
-    res.json({status: 'Task Updated'});
+const getUser = async (req,res) => {
+    const usuario = await User.findById(req.params.id).populate('recursos');
+    res.json(usuario);
 };
 
+const putUser = async(req, res) => {
+    await User.findByIdAndUpdate(req.params.id, req.body.cliente);
+    res.json({message: 'Usuario actualizado'});
+};
 
-// const upLoad = (req, res) => {
-//     //let EDFile = req.files.file
-//     let name = req.files.name
-//     console.log(name);
-//     EDFile.mv(`http://localhost:3000/cliente/public/img/${EDFile.name}`,err => {
-//         if(err) return res.status(500).send({ message : err })
-
-//         return res.status(200).send({ message : 'File upload' })
-//     })
-// }
+const addRecursoToUser = async(req, res) => {
+    const usuario = await User.findById(req.params.id);
+    usuario.recursos.push(req.body.idRecurso);
+    usuario.save();
+    res.json({message: 'Recurso agregado'});
+}
 
 module.exports = {
     register,
     login,
-    confirmar
-
-    //upLoad
+    getUser,
+    putUser,
+    addRecursoToUser
 };

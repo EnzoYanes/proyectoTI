@@ -6,6 +6,10 @@ router.post('/register', user.register);
 
 router.post('/login', user.login);
 
-router.post('/confirmar', user.confirmar);
+router.get('/:id', user.getUser);
+
+router.put('/:id', user.putUser);
+
+router.post('/addRecurso/:id', user.addRecursoToUser);
 
 module.exports = router;

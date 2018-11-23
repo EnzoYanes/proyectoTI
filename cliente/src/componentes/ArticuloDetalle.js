@@ -1,27 +1,16 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import Iframe from 'react-iframe'
-
+import Iframe from 'react-iframe'   
+import axios from 'axios';
 
 class ArticuloDetalle extends Component {
 
-    state = {
-        articulo: 'nada',
-        image: null,
-        url: "/img/Proyecto2018.pdf" ///img/audio.mp3  /img/MERN.png
+    constructor(props){
+        super(props);
+        this.state = {
+            articulo: ''
+        }
     }
-
-    getArticulo = () => {
-        fetch('http://localhost:5000')
-            .then(res => res.json())
-    }
-
-    conf(id){
-        console.log(id);
-        alert(id);   
-    }
-
-    
 
     onImageChange(event) {
         if (event.target.files && event.target.files[0]) {
@@ -34,24 +23,49 @@ class ArticuloDetalle extends Component {
             console.log("RESUL:  " + event.target.result)
             console.log("Probable ruta:  " + event.target.name)
         }
+    }   
+
+    componentWillMount(){
+        this.getArticulo();
     }
 
-    asd(){
-       // let objectURL = URL.createObjectURL('/img/camisa_1.png');
-        //console.log(objectURL);
-        
+    getArticulo = () => {
+        const idArticulo = this.props.location.pathname.replace('/articulo/', '');
+        fetch(`http://localhost:5000/api/recurso/${idArticulo}`)
+            .then(res => res.json())
+            .then(data => {
+                this.setState({
+                    articulo: data
+                })
+            })
     }
-    
+
+    obtenerRecurso = () => {
+        const idRecurso = this.state.articulo._id;
+        const idUser = this.state.idUser;
+        axios.post(`http://localhost:5000/api/user/addRecurso/${this.state.idUser}`, {idRecurso});
+        axios.post(`http://localhost:5000/api/recurso/addCliente/${idRecurso}`,{idUser});
+        window.M.toast({html: 'Recurso obtenido'});
+    }
+
     render() {
         //if(!props.articulo) return null;
         const {isAuthenticated} = this.props.auth;
-        //lo que hace aca es tomar el valor pasado por parametro a la url.
-        let idArticulo = "clic en la description " + this.props.location.pathname.replace('/articulo/', '');
+       //lo que hace aca es tomar el valor pasado por parametro a la url.
+       let idArticulo = "clic en la description " + this.props.location.pathname.replace('/articulo/', '');
+
 
         return (
             <div>
                 { isAuthenticated() && (
-                    <h3>Detalles del articulo id: {idArticulo}</h3>
+                    <div>
+                        <h4>Detalle del recurso</h4>
+                        <img src={`../img/camisa_8.png`} alt={this.state.articulo.nombre} />
+                        <p><b>Nombre:</b> {this.state.articulo.nombre}</p>
+                        <p><b>Descripcion:</b> {this.state.articulo.descripcion}</p>
+                        <p><b>Suscripcion:</b> {this.state.articulo.suscripcion}</p>
+                        <button className="btn" onClick={this.obtenerRecurso}>Obtener</button>
+                    </div>
                 )}
                 
                 { !isAuthenticated() && (
@@ -61,10 +75,10 @@ class ArticuloDetalle extends Component {
                     </div>
                 )}
 
-                <div>
-                    {/*Aca tomo el valor del id que recupero de la url y se lo paso a una funcion */}
+{/*         <div>
+                    //Aca tomo el valor del id que recupero de la url y se lo paso a una funcion 
                      <button onClick={() => this.conf(idArticulo)}>Presione aqui para confirmar Registro</button>
-                     {/* Al pasar el mouse por arriba de este campo ejecuta una funcion la que nosotros queramos */}
+                     // Al pasar el mouse por arriba de este campo ejecuta una funcion la que nosotros queramos 
                      <button onMouseOver={() => this.conf("paso por aqui el mouse")}>Pasar mouse por arriba a ver que pasa</button>                
 
                 </div>
@@ -85,8 +99,8 @@ class ArticuloDetalle extends Component {
                    <button onClick={() => { window.open('/img/MERN.png', '_blank'); }} >Click to show</button>
            
            
-            */}
-                {/* <div style={{paddingLeft:"300px", paddingTop:"50px"}} >
+            
+            <div style={{paddingLeft:"300px", paddingTop:"50px"}} >
                    <Iframe 
                         url={this.state.url}
                         width="70%"
@@ -102,15 +116,15 @@ class ArticuloDetalle extends Component {
                         <a className="btn" href="/img/Proyecto2018.pdf">Descargar</a>
                         <br/><br/><br/>
 
-                    </div> */}
+                    </div>
            </div>
             //    function openPDF(){
-            //window.open("myurl/files/"+nombreArchivo+".pdf","_blank");
+            //window.open("myurl/files/"+nombreArchivo+".pdf","_blank"); */}
 
-         
+
+            </div>
         );
     }
 };
-
 
 export default ArticuloDetalle;
