@@ -51,7 +51,7 @@ class Articulos extends Component {
                     <video src={`img/video.mp4#t=,3`} controls style={{width: '30%', height: '50%'}} />
                     </div>
                     
-                    <audio src={`img/audio.mp3#t=33,37`} controls autoPlay />
+                    <audio src={`img/audio.mp3#t=33,37`} controls />
 
                 <h2 style={{estiloTabla}}>Nuestros Articulos</h2>
                     {Object.keys(this.state.articulos).map(articulo => (
