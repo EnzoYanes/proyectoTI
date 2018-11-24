@@ -58,6 +58,10 @@ class ArticuloDetalle extends Component {
             axios.post(`http://localhost:5000/api/user/addRecurso/${idUser}`, {idRecurso});
             axios.post(`http://localhost:5000/api/recurso/addCliente/${idRecurso}`,{idUser});
             window.M.toast({html: 'Recurso obtenido'});
+            this.state.clientes.push(idUser);
+            this.setState({
+                clientes: this.state.clientes
+            })
         } else {
             window.M.toast({html: 'No cumple la suscripción requerida'});
         }
@@ -69,7 +73,14 @@ class ArticuloDetalle extends Component {
 
     render() {
         const {isAuthenticated} = this.props.auth;
+        let resultado;
 
+        if (!this.tieneRecurso()) {
+            resultado = <div>
+                <p><b>Suscripcion:</b> {this.state.articulo.suscripcion}</p>
+                <button className="btn" onClick={this.obtenerRecurso}>Obtener</button>
+            </div>
+        }
 
         return (
             <div>
@@ -79,12 +90,7 @@ class ArticuloDetalle extends Component {
                         <img src={`../img/camisa_8.png`} alt={this.state.articulo.nombre} />
                         <p><b>Nombre:</b> {this.state.articulo.nombre}</p>
                         <p><b>Descripcion:</b> {this.state.articulo.descripcion}</p>
-                        { !this.tieneRecurso() && (
-                            <React.Fragment>
-                                <p><b>Suscripcion:</b> {this.state.articulo.suscripcion}</p>
-                                <button className="btn" onClick={this.obtenerRecurso}>Obtener</button>
-                            </React.Fragment>
-                        )}
+                        {resultado}
                     </div>
                 )}
                 
