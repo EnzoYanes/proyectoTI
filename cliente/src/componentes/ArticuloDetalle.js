@@ -10,7 +10,7 @@ class ArticuloDetalle extends Component {
         this.state = {
             articulo: '',
             clientes: [],
-            user: ''
+            user: '',
         }
     }
 
@@ -39,7 +39,7 @@ class ArticuloDetalle extends Component {
             .then(data => {
                 this.setState({
                     articulo: data,
-                    clientes: data.clientes
+                    clientes: data.clientes,
                 })
             })
         axios.get(`http://localhost:5000/api/user/${userToken._id}`)
@@ -76,12 +76,29 @@ class ArticuloDetalle extends Component {
                 { isAuthenticated() && (
                     <div>
                         <h4>Detalle del recurso</h4>
-                        <img src={`../img/camisa_8.png`} alt={this.state.articulo.nombre} />
+                {/*<img src={`../img/camisa_8.png`} alt={this.state.articulo.nombre} /> */}
+                        <div style={{paddingLeft:"300px", paddingTop:"50px"}} >
+                            <Iframe 
+                                url={'/img/Proyecto2018.pdf' /**+ this.state.articulo.archivo */}
+                                width="70%"
+                                height="700px"
+                                id="myId"
+                                //className="myClassname"
+                                //display="initial"
+                                position="relative"
+                                //allowFullScreen
+                                
+                                />
+                                <br/>
+                               {/* <br/><br/> <a className="btn" href="/img/Proyecto2018.pdf">Descargar</a> */}
+                                <br/><br/><br/>
+
+                        </div>
                         <p><b>Nombre:</b> {this.state.articulo.nombre}</p>
                         <p><b>Descripcion:</b> {this.state.articulo.descripcion}</p>
                         { !this.tieneRecurso() && (
                             <React.Fragment>
-                                <p><b>Suscripcion:</b> {this.state.articulo.suscripcion}</p>
+                                <p><b>Suscripcion:</b> {this.state.articulo.archivo}</p>
                                 <button className="btn" onClick={this.obtenerRecurso}>Obtener</button>
                             </React.Fragment>
                         )}

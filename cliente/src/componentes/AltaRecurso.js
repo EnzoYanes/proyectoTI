@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+
 class AltaRecurso extends Component {
 
     constructor(props){
@@ -70,6 +71,15 @@ class AltaRecurso extends Component {
         e.preventDefault();
     }
 
+    cambiarFile(e){
+        const input = document.getElementById('inputFileServer');
+        if(input.files && input.files[0]){
+            this.setState({archivo: input.files[0].name})
+            //console.log(input.files[0]); obtiene todos los datos del file (+'.name' para obtener el nombre )
+        }
+        else console.log('no entro al if');
+    }
+
     render() {
         return (
             <div className="container">
@@ -113,9 +123,10 @@ class AltaRecurso extends Component {
                                     <span>Descargable</span>
                                 </label>
                             </p>
-
+                            <input type='text' value={this.state.archivo} hidden/>
                             <button type="submit" className="btn light-blue darken-4">Crear</button>
                         </form>
+                        <input type="file" name="fileToUpload" id="inputFileServer" onChange = {(e) => {this.cambiarFile(e)}} />
                     </div>
                 </div>
             </div>
