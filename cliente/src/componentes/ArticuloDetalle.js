@@ -11,24 +11,13 @@ class ArticuloDetalle extends Component {
             articulo: '',
             clientes: [],
             user: '',
+            archivo:''
         }
     }
 
-    onImageChange(event) {
-        if (event.target.files && event.target.files[0]) {
-            let reader = new FileReader();
-            reader.onload = (e) => {
-                this.setState({image: e.target.result});
-            };
-            reader.readAsDataURL(event.target.files[0]);
-            console.log("FILE:  " + event.target.files[0])
-            console.log("RESUL:  " + event.target.result)
-            console.log("Probable ruta:  " + event.target.name)
-        }
-    }   
-
     componentWillMount(){
         this.getDatos();
+        console.log(this.state.archivo);
     }
 
     getDatos = () => {
@@ -40,8 +29,10 @@ class ArticuloDetalle extends Component {
                 this.setState({
                     articulo: data,
                     clientes: data.clientes,
+                    archivo: data.archivo
                 })
             })
+
         axios.get(`http://localhost:5000/api/user/${userToken._id}`)
             .then(res => {
                 this.setState({
@@ -58,6 +49,10 @@ class ArticuloDetalle extends Component {
             axios.post(`http://localhost:5000/api/user/addRecurso/${idUser}`, {idRecurso});
             axios.post(`http://localhost:5000/api/recurso/addCliente/${idRecurso}`,{idUser});
             window.M.toast({html: 'Recurso obtenido'});
+            this.state.clientes.push(idUser);
+            this.setState({
+                clientes: this.state.clientes
+            })
         } else {
             window.M.toast({html: 'No cumple la suscripción requerida'});
         }
@@ -67,41 +62,61 @@ class ArticuloDetalle extends Component {
         return this.state.clientes.some(c => c === this.state.user._id);
     }
 
+    verDato = () => {
+        let nom = this.state.articulo.archivo;
+        let nombre = nom.replace(/ /g, "");
+        this.setState({
+            articulo: nombre
+        })
+        return nombre
+    }
+
+    ver = () => {
+        let a = this.verDato();
+        console.log(a);
+    }
+
     render() {
         const {isAuthenticated} = this.props.auth;
+        let resultado;
+        let frame;
+        if (!this.tieneRecurso()) {
+            resultado = <div>
+                <p><b>Suscripcion:</b> {this.state.articulo.suscripcion}</p>
+                <button className="btn" onClick={this.obtenerRecurso}>Obtener</button>
+            </div>
+        }
+        let ur = this.state.archivo;
+        if(!this.state.archivo == ''){
+            frame = <div style={{paddingLeft:"300px", paddingTop:"50px"}} >
+            <Iframe 
+                url={'/img/'+ur}
+                width="70%"
+                height="700px"
+                id="myId"
+          
+                //className="myClassname"
+                //display="initial"
+                position="relative"
+                //allowFullScreen
+                
+                />
+                <br/>
+               {/* <br/><br/> <a className="btn" href="/img/Proyecto2018.pdf">Descargar</a> */}
+                <br/><br/><br/>
 
-
+        </div>
+        }
         return (
             <div>
                 { isAuthenticated() && (
                     <div>
                         <h4>Detalle del recurso</h4>
                 {/*<img src={`../img/camisa_8.png`} alt={this.state.articulo.nombre} /> */}
-                        <div style={{paddingLeft:"300px", paddingTop:"50px"}} >
-                            <Iframe 
-                                url={'/img/Proyecto2018.pdf' /**+ this.state.articulo.archivo */}
-                                width="70%"
-                                height="700px"
-                                id="myId"
-                                //className="myClassname"
-                                //display="initial"
-                                position="relative"
-                                //allowFullScreen
-                                
-                                />
-                                <br/>
-                               {/* <br/><br/> <a className="btn" href="/img/Proyecto2018.pdf">Descargar</a> */}
-                                <br/><br/><br/>
-
-                        </div>
+                        {frame}
                         <p><b>Nombre:</b> {this.state.articulo.nombre}</p>
                         <p><b>Descripcion:</b> {this.state.articulo.descripcion}</p>
-                        { !this.tieneRecurso() && (
-                            <React.Fragment>
-                                <p><b>Suscripcion:</b> {this.state.articulo.archivo}</p>
-                                <button className="btn" onClick={this.obtenerRecurso}>Obtener</button>
-                            </React.Fragment>
-                        )}
+                        {resultado}
                     </div>
                 )}
                 
@@ -111,6 +126,8 @@ class ArticuloDetalle extends Component {
                         <Link to="/login">Iniciar Sesión</Link>
                     </div>
                 )}
+                <p>{this.state.archivo}</p>
+                <button className="btn"  onClick = {() => this.ver()}>VER DATO</button>
 
 {/*         <div>
                     //Aca tomo el valor del id que recupero de la url y se lo paso a una funcion 

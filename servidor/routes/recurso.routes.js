@@ -12,4 +12,6 @@ router.put('/:id', recurso.updateRecurso);
 
 router.post('/addCliente/:id', recurso.addCliente);
 
+router.post('/upload', recurso.upload);
+
 module.exports = router;
