@@ -23,6 +23,7 @@ import NavBar from './NavBar';
 import Tree from './Tree';
 
 import SideBar from './SideBar';
+import Footer from './Footer';
 
 
 const auth = new Auth();
@@ -39,6 +40,7 @@ export const makeMainRoutes = () => {
             <div>
                 <NavBar auth={auth} />
                 <SideBar />
+                
                 <div style={{paddingLeft:400}}>
                     <Route path="/login" render={(props) => (
                         <Login
@@ -80,7 +82,7 @@ export const makeMainRoutes = () => {
                 </div>
 
                 <Route path="/tree" component={Tree}/>
-
+                <Footer />
             </div>
         </Router>
     );

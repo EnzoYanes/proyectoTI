@@ -128,7 +128,8 @@ class ArticuloDetalle extends Component {
                 )}
                 <p>{this.state.archivo}</p>
                 <button className="btn"  onClick = {() => this.ver()}>VER DATO</button>
-
+           
+           
 {/*         <div>
                     //Aca tomo el valor del id que recupero de la url y se lo paso a una funcion 
                      <button onClick={() => this.conf(idArticulo)}>Presione aqui para confirmar Registro</button>
@@ -174,8 +175,7 @@ class ArticuloDetalle extends Component {
            </div>
             //    function openPDF(){
             //window.open("myurl/files/"+nombreArchivo+".pdf","_blank"); */}
-
-
+            
             </div>
         );
     }

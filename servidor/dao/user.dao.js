@@ -29,7 +29,7 @@ const sendMail  = () => {
 
         //envio de email
         const nodemailer = require('nodemailer');
-
+        const smtpTransport = require('nodemailer-smtp-transport');
         // Generate SMTP service account from ethereal.email
         nodemailer.createTestAccount((err, account) => {
             if (err) {
@@ -40,21 +40,22 @@ const sendMail  = () => {
             console.log('Credentials obtained, sending message...');
 
             // Create a SMTP transporter object
-            let transporter = nodemailer.createTransport({
+            let transporter = nodemailer.createTransport(smtpTransport({
                 host: 'smtp.gmail.com', //account.smtp.host,
                 port: 587,//account.smtp.port,
                 secure: false,//account.smtp.secure,
                 auth: {
-                    user: 'rvalve24@gmail.com',//account.user,
-                    pass: 'proyecto18'//account.pass
-                }
-            });
+                    user: 'richard.valve2497@gmail.com',//account.user,
+                    pass: 'richardvalve2497'//account.pass
+                },
+                tls: { rejectUnauthorized: false }
+            }));
 
             // Message object
             
             let message = {
-                from: 'rvalve24@gmail.com',//'Sender Name <sender@example.com>',
-                to: 'richard.valve2497@gmail.com',//'Recipient <recipient@example.com>',
+                from: 'richard.valve2497@gmail.com',//'Sender Name <sender@example.com>',
+                to: 'rvalve24@gmail.com',//'Recipient <recipient@example.com>',
                 subject: 'Equipo administrativo',
                 //text: 'Hello to myself!',
                 html: '<p><b>Se ha iniciado sesion correctamente </b>  '
@@ -80,7 +81,7 @@ const login = (req, res) => {
         if (usuario) {
             if (usuario.comparePassword(password)){
                 //return res.setHeader('Authorization', 'Bearer ' + utils.createToken(usuario));
-                sendMail();
+               // sendMail();
                 return res.json({token: jwt.sign({user: usuario}, 'secret'),
                     user: usuario});
             }else{
@@ -114,5 +115,5 @@ module.exports = {
     login,
     getUser,
     putUser,
-    addRecursoToUser
+    addRecursoToUser,
 };

@@ -75,10 +75,34 @@ class ComprarSuscripcion extends Component{
                                 <option value="3">Gold</option>
                             </select>
                             <input name="correo" value={this.state.correo} type="text" disabled={true} />
-                            
+                            <div style={{border:'solid', padding:'20px', width:'110%'}}>
+                                <h4>Datos tarjeta</h4>
+                                <div>
+                                    <label for="numTarjeta">Numero de tarjeta</label>
+                                    <input placeholder="XXXX-XXXX-XXXX-XXXX-XXXX" id="numTarjeta" type="number" class="validate"/>
+                                    <div>
+                                        <img src="https://img.icons8.com/color/50/000000/visa.png" alt=''></img>
+                                        <img src="https://img.icons8.com/color/50/000000/mastercard.png" alt=''></img>
+                                    </div>
+                                </div>
+                                <div >
+                                    <label for="titular">Nombre del titular de la tarjeta</label>
+                                    <input placeholder="" id="titular" type="text" class="validate" />
+                                </div>
+                                <div className="col s6" >
+                                    <label for="cvv">Codigo de seguridad</label>
+                                    <input id="cvv" type="text" class="validate" maxLength="3"/>
+                                </div>
+                                <div>
+                                    <div>
+                                        <br></br><br></br><br></br><br></br>
+                                    <label for="fechaEx">Fecha de vencimiento</label>
+                                        <input id="date_expired" type="date" class="validate"/>
+                                    </div>
+                                </div>
+                            </div>                            
                             <button type="submit" className="btn light-blue darken-4">Guardar</button>
                         </form>
-                        
                     </div>
                 </div>
                 

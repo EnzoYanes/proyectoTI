@@ -76,30 +76,31 @@ class AltaRecurso extends Component {
         const input = document.getElementById('inputFileServer');
         if(input.files && input.files[0]){
             let nom = input.files[0].name;
-            let nombre = nom.replace(/ /g, "");
-            this.setState({archivo: nombre})
+           // let nombre = nom.replace(/ /g, "");
+            this.setState({archivo: nom})
             //console.log(input.files[0]); //obtiene todos los datos del file (+'.name' para obtener el nombre )
         }
-        else console.log('no entro al if');
     }
 
     upload(e){
         const input = document.getElementById('inputFileServer');
         console.log(input.files[0]);
+        let file = input.files[0];
+        console.log(file.name);
         if(input.files && input.files[0]){
             const formData = new FormData();
-            formData.append('file', input);
-            axios.post(`http://localhost:5000/api/recurso/upload`, {formData});
-            // fetch('http://localhost:5000/api/recurso/upload', {
-            //     method: 'POST',
-            //     mode: 'no-cors',
-            //     body: formData,
-            //     headers: {
-            //    'Accept': 'application/json',
-            //    'Content-Type': 'application/x-www-form-urlencoded'
-            //     },
+            formData.append('file', input.files[0]);
+            //axios.post(`http://localhost:5000/api/recurso/upload`, {formData});
+             fetch('http://localhost:5000/api/recurso/upload', {
+                 method: 'POST',
+                 mode: 'no-cors',
+                 body: JSON.stringify(file),
+                 headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded'
+                 },
             
-            // })
+            })
 
         }
     }
@@ -108,7 +109,7 @@ class AltaRecurso extends Component {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col s5">
+                    <div className="col s8">
                         <h4>Alta recurso</h4>
                         <form onSubmit={this.addRecurso}>
                             <select name="idCategoria" value={this.state.idCategoria} onChange={this.handleChange} className="browser-default">
