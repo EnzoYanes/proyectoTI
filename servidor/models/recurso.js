@@ -10,7 +10,7 @@ const RecursoSchema = new Schema({
     suscripcion: Number,
     descargable: Boolean,
     archivo: String,
-    clientes: [{type: mongoose.Schema.Types.ObjectId, ref:'user'}]
+    clientes: [{type: mongoose.Schema.Types.ObjectId, ref:'User'}]
 });
 
 module.exports = mongoose.model('recurso', RecursoSchema);

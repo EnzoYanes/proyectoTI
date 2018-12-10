@@ -6,7 +6,7 @@ const getRecursos = async (req, res) => {
 };
 
 const getRecurso = async (req,res) => {
-    const recurso = await Recurso.findById(req.params.id);
+    const recurso = await Recurso.findById(req.params.id).populate('clientes');
     res.json(recurso);
 };
 

@@ -37,6 +37,7 @@ class NavBar extends Component {
                     <li><a href="/altaCategoria">Alta de categoria</a></li>
                     <li><a href="/suscripciones">Suscripciónes</a></li>
                     <li><a href="/altaRecurso">Alta de recurso</a></li>
+                    <li><a href="/articulosProveedor">Mis recursos</a></li>
                     <li className="divider"></li>
                     <li><a href="/" onClick={this.cerrarSesion}>Cerrar Sesión</a></li>
                 </ul>

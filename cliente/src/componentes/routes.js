@@ -10,6 +10,8 @@ import Login from './Login';
 import Registro from './Registro';
 //import Error from './Error';
 import Articulos from './Articulos';
+import ArticulosProveedor from './ArticulosProveedor';
+import EstadisticasRecurso from './EstadisticasRecurso';
 import ArticuloDetalle from './ArticuloDetalle';
 import AltaCategoria from './AltaCategoria';
 import Suscripciones from './Suscripciones';
@@ -51,6 +53,9 @@ export const makeMainRoutes = () => {
                     <Route path="/altaCategoria" component={AltaCategoria} />
                     <Route path="/suscripciones" component={Suscripciones} />
                     <Route path="/altaRecurso" component={AltaRecurso} />
+                    <Route path="/articulosProveedor" render={() => (
+                        <ArticulosProveedor auth={auth} />
+                    )} />
 
                     <Route exact path="/articulo/:articuloId" render={(props) => (
                         <ArticuloDetalle
@@ -60,6 +65,11 @@ export const makeMainRoutes = () => {
                     <Route exact path="/editarRecurso/:recursoId" render={(props) => (
                         <EditarRecurso
                             id={props.location.pathname.replace('/editarRecurso/','')}
+                        />
+                    ) } />
+                    <Route exact path="/estadisticasRecurso/:recursoId" render={(props) => (
+                        <EstadisticasRecurso
+                            id={props.location.pathname.replace('/estadisticasRecurso/','')}
                         />
                     ) } />
                     <Route exact path="/editarCliente" render={(props) => (
