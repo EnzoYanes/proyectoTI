@@ -1,4 +1,6 @@
 const Recurso = require('../models/recurso');
+const fileUpload = require('express-fileupload');
+
 
 const getRecursos = async (req, res) => {
     const recurso = await Recurso.find();
@@ -30,6 +32,7 @@ const addRecurso = async(req, res) => {
                 descargable,
                 archivo});
             recurso.save();
+
             res.json({ok: true});
         } else {
             res.json({message: 'Existe recurso'});
@@ -49,10 +52,23 @@ const addCliente = async(req, res) => {
     res.json({message: 'Cliente agergado'});
 };
 
+const upload = (req,res) => {
+    console.log(req);
+    // let EDFile = req.files.file;
+    // console.log(EDFile.name);
+    // res.json(EDFile);
+    // EDFile.mv(`../cliente/public/img/${EDFile.name}`,err => {
+    //     if(err) return res.status(500).send({ message : err })
+
+    //     return res.status(200).send({ message : 'File upload' })
+    // })
+};
+
 module.exports={
     getRecursos,
     getRecurso,
     addRecurso,
     updateRecurso,
-    addCliente
+    addCliente,
+    upload
 };

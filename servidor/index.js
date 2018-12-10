@@ -5,6 +5,7 @@ import jwks from 'jwks-rsa';
 const { mongoose } = require('./database');
 import jwtAuthz from 'express-jwt-authz';
 import bodyParser from 'body-parser';
+import fileUpload from 'express-fileupload';
 
 // crear servidor
 const app = express();
@@ -12,6 +13,7 @@ const app = express();
 // configurar el servidor para json
 app.use(bodyParser.json() );
 app.use(bodyParser.urlencoded({ extended: true } ));
+app.use(fileUpload());
 
 app.use( cors() );
 
