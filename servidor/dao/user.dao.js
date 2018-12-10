@@ -45,8 +45,8 @@ const sendMail  = () => {
                 port: 587,//account.smtp.port,
                 secure: false,//account.smtp.secure,
                 auth: {
-                    user: 'richard.valve2497@gmail.com',//account.user,
-                    pass: 'richardvalve2497'//account.pass
+                    user: 'rvalve24@gmail.com',//account.user,
+                    pass: 'proyecto2018'//account.pass
                 },
                 tls: { rejectUnauthorized: false }
             }));
@@ -54,8 +54,8 @@ const sendMail  = () => {
             // Message object
             
             let message = {
-                from: 'richard.valve2497@gmail.com',//'Sender Name <sender@example.com>',
-                to: 'rvalve24@gmail.com',//'Recipient <recipient@example.com>',
+                from: 'rvalve24@gmail.com',//'Sender Name <sender@example.com>',
+                to: 'richard.valve2497@gmail.com',//'Recipient <recipient@example.com>',
                 subject: 'Equipo administrativo',
                 //text: 'Hello to myself!',
                 html: '<p><b>Se ha iniciado sesion correctamente </b>  '
@@ -81,7 +81,7 @@ const login = (req, res) => {
         if (usuario) {
             if (usuario.comparePassword(password)){
                 //return res.setHeader('Authorization', 'Bearer ' + utils.createToken(usuario));
-               // sendMail();
+                //sendMail();
                 return res.json({token: jwt.sign({user: usuario}, 'secret'),
                     user: usuario});
             }else{
