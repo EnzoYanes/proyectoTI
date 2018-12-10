@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-//import Iframe from 'react-iframe'   
+import Iframe from 'react-iframe'   
 import axios from 'axios';
 
 class ArticuloDetalle extends Component {

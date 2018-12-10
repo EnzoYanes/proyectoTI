@@ -79,7 +79,7 @@ class ComprarSuscripcion extends Component{
                                 <h4>Datos tarjeta</h4>
                                 <div>
                                     <label for="numTarjeta">Numero de tarjeta</label>
-                                    <input placeholder="XXXX-XXXX-XXXX-XXXX-XXXX" id="numTarjeta" type="number" class="validate"/>
+                                    <input placeholder="XXXX-XXXX-XXXX-XXXX" id="numTarjeta" type="number" class="validate"/>
                                     <div>
                                         <img src="https://img.icons8.com/color/50/000000/visa.png" alt=''></img>
                                         <img src="https://img.icons8.com/color/50/000000/mastercard.png" alt=''></img>
