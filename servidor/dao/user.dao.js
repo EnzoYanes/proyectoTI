@@ -15,8 +15,10 @@ const register = async(req, res) => {
     } = req.body;
     User.findOne({username: username}, (error, usuario) => {
         if (!usuario) {
-            const user = new User({username, password, nombre, apellido, fechaNac, correo, tipo, suscripcion, nombreEmpresa, linkEmpresa});
+            let activo = false;
+            const user = new User({username, password, nombre, apellido, fechaNac, correo, tipo, suscripcion, nombreEmpresa, linkEmpresa, activo});
             user.save();
+            sendMail(user.id, user.correo);
             res.json({ok: true});
         } else {
             res.json({status: "Existe otro usuario con mismo nombre"});
@@ -25,7 +27,7 @@ const register = async(req, res) => {
     
 };
 
-const sendMail  = () => {
+const sendMail  = (idUsr, tomail) => {
 
         //envio de email
         const nodemailer = require('nodemailer');
@@ -52,13 +54,12 @@ const sendMail  = () => {
             }));
 
             // Message object
-            
             let message = {
                 from: 'rvalve24@gmail.com',//'Sender Name <sender@example.com>',
-                to: 'richard.valve2497@gmail.com',//'Recipient <recipient@example.com>',
-                subject: 'Equipo administrativo',
+                to: tomail,//'Recipient <recipient@example.com>',
+                subject: 'Confirmacion de registro',
                 //text: 'Hello to myself!',
-                html: '<p><b>Se ha iniciado sesion correctamente </b>  '
+                html: '<p><b>Para completar su registro presione <a href="http://localhost:3000/confReg/'+idUsr+'">aqui</a> </b>  '
             };
         
             transporter.sendMail(message, (err, info) => {
@@ -81,9 +82,13 @@ const login = (req, res) => {
         if (usuario) {
             if (usuario.comparePassword(password)){
                 //return res.setHeader('Authorization', 'Bearer ' + utils.createToken(usuario));
-                //sendMail();
-                return res.json({token: jwt.sign({user: usuario}, 'secret'),
-                    user: usuario});
+                if(usuario.activo === false){
+                    return res.json({status: 'Esperando confirmacion por mail'});
+                }
+                else{
+                    return res.json({token: jwt.sign({user: usuario}, 'secret'),
+                        user: usuario});
+                }
             }else{
                 return res.json({status: 'Contraseña incorrecta'});
             }
@@ -108,7 +113,19 @@ const addRecursoToUser = async(req, res) => {
     usuario.recursos.push(req.body.idRecurso);
     usuario.save();
     res.json({message: 'Recurso agregado'});
+};
+
+const confReg = async(req, res) => {
+    const u = await User.findById(req.params.id);
+    if(u){
+        u.activo = true;
+        u.save();
+        res.json({ok: 'ok'});
+    }
+    else res.end();
 }
+
+
 
 module.exports = {
     register,
@@ -116,4 +133,5 @@ module.exports = {
     getUser,
     putUser,
     addRecursoToUser,
+    confReg
 };

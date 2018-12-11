@@ -12,4 +12,6 @@ router.put('/:id', user.putUser);
 
 router.post('/addRecurso/:id', user.addRecursoToUser);
 
+router.post('/confReg/:id', user.confReg);
+
 module.exports = router;
