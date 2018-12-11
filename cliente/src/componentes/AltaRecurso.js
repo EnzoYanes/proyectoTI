@@ -55,6 +55,7 @@ class AltaRecurso extends Component {
                 window.M.toast({html: data.message}); 
             }
             else{
+                this.upload();
                 window.M.toast({html: 'Recurso creado'});
                 this.setState({idCategoria: '',
                     nombre: '',
@@ -84,24 +85,13 @@ class AltaRecurso extends Component {
 
     upload(e){
         const input = document.getElementById('inputFileServer');
-        console.log(input.files[0]);
-        let file = input.files[0];
-        console.log(file.name);
         if(input.files && input.files[0]){
             const formData = new FormData();
             formData.append('file', input.files[0]);
-            //axios.post(`http://localhost:5000/api/recurso/upload`, {formData});
              fetch('http://localhost:5000/api/recurso/upload', {
                  method: 'POST',
-                 mode: 'no-cors',
-                 body: JSON.stringify(file),
-                 headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/x-www-form-urlencoded'
-                 },
-            
+                 body: formData
             })
-
         }
     }
 
@@ -148,13 +138,17 @@ class AltaRecurso extends Component {
                                     <span>Descargable</span>
                                 </label>
                             </p>
-                            <input type='text' value={this.state.archivo} />
+                            <div class="file-field input-field">
+                                <div class="btn">
+                                    <span>Archivo</span>
+                                    <input type="file" name="file" id="inputFileServer" onChange = {(e) => {this.cambiarFile(e)}} /> <br/><br/>
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate" type="text"/>
+                                </div>
+                            </div>
                             <button type="submit" className="btn light-blue darken-4">Crear</button>
                         </form>
-                        <div>
-                            <input type="file" name="file" id="inputFileServer" onChange = {(e) => {this.cambiarFile(e)}} />
-                            <button onClick = {() => this.upload()}>Cargar archivo</button>
-                        </div>
                     </div>
                 </div>
             </div>

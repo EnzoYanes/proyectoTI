@@ -53,15 +53,12 @@ const addCliente = async(req, res) => {
 };
 
 const upload = (req,res) => {
-    console.log(req);
-    // let EDFile = req.files.file;
-    // console.log(EDFile.name);
-    // res.json(EDFile);
-    // EDFile.mv(`../cliente/public/img/${EDFile.name}`,err => {
-    //     if(err) return res.status(500).send({ message : err })
+    let EDFile = req.files.file;
+    EDFile.mv(`../cliente/public/img/${EDFile.name}`,err => {
+        if(err) return res.status(500).send({ message : err })
 
-    //     return res.status(200).send({ message : 'File upload' })
-    // })
+        return res.status(200).send({ message : 'File upload' })
+    })
 };
 
 module.exports={

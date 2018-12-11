@@ -10,14 +10,12 @@ class ArticuloDetalle extends Component {
         this.state = {
             articulo: '',
             clientes: [],
-            user: '',
-            archivo:''
+            user: ''
         }
     }
 
     componentWillMount(){
         this.getDatos();
-        console.log(this.state.archivo);
     }
 
     getDatos = () => {
@@ -28,8 +26,7 @@ class ArticuloDetalle extends Component {
             .then(data => {
                 this.setState({
                     articulo: data,
-                    clientes: data.clientes,
-                    archivo: data.archivo
+                    clientes: data.clientes
                 })
             })
 
@@ -42,7 +39,6 @@ class ArticuloDetalle extends Component {
     }
 
     obtenerRecurso = () => {
-
         if (this.state.user.suscripcion >= this.state.articulo.suscripcion) {
             const idRecurso = this.state.articulo._id;
             const idUser = this.state.user._id;
@@ -62,60 +58,45 @@ class ArticuloDetalle extends Component {
         return this.state.clientes.some(c => c._id === this.state.user._id);
     }
 
-    verDato = () => {
-        let nom = this.state.articulo.archivo;
-        let nombre = nom.replace(/ /g, "");
-        this.setState({
-            articulo: nombre
-        })
-        return nombre
-    }
-
-    ver = () => {
-        let a = this.verDato();
-        console.log(a);
-    }
-
     render() {
         const {isAuthenticated} = this.props.auth;
         let resultado;
-        let frame;
+        let descargar;
         if (!this.tieneRecurso()) {
             resultado = <div>
                 <p><b>Suscripcion:</b> {this.state.articulo.suscripcion}</p>
                 <button className="btn" onClick={this.obtenerRecurso}>Obtener</button>
             </div>
-        }
-        let ur = this.state.archivo;
-        if(!this.state.archivo == ''){
-            frame = <div style={{paddingLeft:"300px", paddingTop:"50px"}} >
-            <Iframe 
-                url={'/img/'+ur}
-                width="70%"
-                height="700px"
-                id="myId"
-          
-                //className="myClassname"
-                //display="initial"
-                position="relative"
-                //allowFullScreen
-                
-                />
-                <br/>
-               {/* <br/><br/> <a className="btn" href="/img/Proyecto2018.pdf">Descargar</a> */}
-                <br/><br/><br/>
-
-        </div>
+        }else{
+            if (this.state.articulo.tipo == "Video") {
+               resultado = <video src={`/img/${this.state.articulo.archivo}`} controls style={{width: '60%'}}/>
+            }else{
+                resultado = <div>
+                    <Iframe 
+                        url={'/img/'+this.state.articulo.archivo}
+                        width="100%"
+                        height="700px"
+                        id="myId"
+                        position="relative"
+                    />
+                    <br/><br/>
+                </div>
+            }
+            if (this.state.articulo.descargable == true) {
+                descargar = <div>
+                    <a className="btn" href={'/img/'+this.state.articulo.archivo} download >Descargar</a>
+                    <br/><br/>
+                </div>
+            }
         }
         return (
             <div>
                 { isAuthenticated() && (
                     <div>
                         <h4>Detalle del recurso</h4>
-                {/*<img src={`../img/camisa_8.png`} alt={this.state.articulo.nombre} /> */}
-                        {frame}
                         <p><b>Nombre:</b> {this.state.articulo.nombre}</p>
                         <p><b>Descripcion:</b> {this.state.articulo.descripcion}</p>
+                        {descargar}
                         {resultado}
                     </div>
                 )}
@@ -126,8 +107,6 @@ class ArticuloDetalle extends Component {
                         <Link to="/login">Iniciar Sesión</Link>
                     </div>
                 )}
-                <p>{this.state.archivo}</p>
-                <button className="btn"  onClick = {() => this.ver()}>VER DATO</button>
            
            
 {/*         <div>
