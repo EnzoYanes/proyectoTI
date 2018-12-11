@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const RecursoSchema = new Schema({
-    idCategoria: String,
+    categoria: String,
     nombre: { type: String, required: true},
     descripcion: String,
     imagen: String,

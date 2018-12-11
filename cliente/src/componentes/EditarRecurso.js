@@ -6,7 +6,7 @@ class EditarRecurso extends Component {
     constructor(props){
         super(props);
         this.state = {
-            idCategoria: '',
+            categoria: '',
             nombre: '',
             descripcion: '',
             imagen: '',
@@ -43,7 +43,7 @@ class EditarRecurso extends Component {
     getRecurso(){
         axios.get(`http://localhost:5000/api/recurso/${this.props.id}`)
             .then(res => {
-                this.setState({idCategoria: res.data.idCategoria,
+                this.setState({categoria: res.data.categoria,
                     nombre: res.data.nombre,
                     descripcion: res.data.descripcion,
                     imagen: res.data.imagen,
@@ -57,7 +57,7 @@ class EditarRecurso extends Component {
 
     updateRecurso(e){
         const recurso = {
-            idCategoria: this.state.idCategoria,
+            categoria: this.state.categoria,
             nombre: this.state.nombre,
             descripcion: this.state.descripcion,
             imagen: this.state.imagen,
@@ -86,12 +86,12 @@ class EditarRecurso extends Component {
                     <div className="col s5">
                         <h4>Editar recurso</h4>
                         <form onSubmit={this.updateRecurso}>
-                            <select name="idCategoria" value={this.state.idCategoria} onChange={this.handleChange} className="browser-default">
+                            <select name="categoria" value={this.state.categoria} onChange={this.handleChange} className="browser-default">
                                 <option value="">Seleccione categoria</option>
                                 {
                                     this.state.categorias.map(cat => {
                                         return(
-                                            <option key={cat._id} value={cat._id}>{cat.nombre}</option>
+                                            <option key={cat._id} value={cat.nombre}>{cat.nombre}</option>
                                         )
                                     })
                                 }
@@ -105,11 +105,11 @@ class EditarRecurso extends Component {
                                 <option value="Libro">Libro</option>
                                 <option value="Video">Video</option>
                             </select>
-                            <select name="suscripcion" value={this.state.suscripcionReq} onChange={this.handleChange} className="browser-default">
+                            <select name="suscripcion" value={this.state.suscripcion} onChange={this.handleChange} className="browser-default">
                                 <option value="">Suscripción requerida</option>
-                                <option value="Free">Free</option>
-                                <option value="Silver">Silver</option>
-                                <option value="Gold">Gold</option>
+                                <option value="1">Free</option>
+                                <option value="2">Silver</option>
+                                <option value="3">Gold</option>
                             </select>
                             <p>
                                 <label>

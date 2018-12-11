@@ -7,7 +7,7 @@ class AltaRecurso extends Component {
     constructor(props){
         super(props);
         this.state = {
-            idCategoria: '',
+            categoria: '',
             nombre: '',
             descripcion: '',
             imagen: '',
@@ -57,7 +57,7 @@ class AltaRecurso extends Component {
             else{
                 this.upload();
                 window.M.toast({html: 'Recurso creado'});
-                this.setState({idCategoria: '',
+                this.setState({categoria: '',
                     nombre: '',
                     descripcion: '',
                     imagen: '',
@@ -102,12 +102,12 @@ class AltaRecurso extends Component {
                     <div className="col s8">
                         <h4>Alta recurso</h4>
                         <form onSubmit={this.addRecurso}>
-                            <select name="idCategoria" value={this.state.idCategoria} onChange={this.handleChange} className="browser-default">
+                            <select name="categoria" value={this.state.categoria} onChange={this.handleChange} className="browser-default">
                                 <option value="">Seleccione categoria</option>
                                 {
                                     this.state.categorias.map(cat => {
                                         return(
-                                            <option key={cat._id} value={cat._id}>{cat.nombre}</option>
+                                            <option key={cat._id} value={cat.nombre}>{cat.nombre}</option>
                                         )
                                     })
                                 }

@@ -13,7 +13,7 @@ const getRecurso = async (req,res) => {
 };
 
 const addRecurso = async(req, res) => {
-    const {idCategoria,
+    const {categoria,
         nombre,
         descripcion,
         imagen,
@@ -23,7 +23,7 @@ const addRecurso = async(req, res) => {
         archivo} = req.body;
     Recurso.findOne({nombre: nombre}, (error, rec) => {
         if (!rec) {
-            const recurso = new Recurso({idCategoria,
+            const recurso = new Recurso({categoria,
                 nombre,
                 descripcion,
                 imagen,

@@ -45,7 +45,7 @@ class ArticuloDetalle extends Component {
             axios.post(`http://localhost:5000/api/user/addRecurso/${idUser}`, {idRecurso});
             axios.post(`http://localhost:5000/api/recurso/addCliente/${idRecurso}`,{idUser});
             window.M.toast({html: 'Recurso obtenido'});
-            this.state.clientes.push(idUser);
+            this.state.clientes.push(this.state.user);
             this.setState({
                 clientes: this.state.clientes
             })

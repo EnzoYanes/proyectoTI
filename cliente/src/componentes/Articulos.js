@@ -22,9 +22,11 @@ class Articulos extends Component {
                         {_id: 2, nombre: 'Silver', precio: 5},
                         {_id: 3, nombre: 'Gold', precio: 10}
                     ];
+                    const admin = {username: 'admin', password: 'admin', nombre: 'Administrador', fechaNac: '01/01/1990', suscripcion: 1, tipo: 'Admin', activado: true};
                     suscripciones.map(item => (
                         axios.post('http://localhost:5000/api/suscripcion/',{item})
                     ));
+                    axios.post('http://localhost:5000/api/user/register/',{admin});
                 }
             })
     }
