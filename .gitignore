@@ -6,7 +6,6 @@
 /.pnp
 .pnp.js
 
-/cliente/public/img
 
 # testing
 /coverage
