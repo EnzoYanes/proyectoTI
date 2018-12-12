@@ -14,7 +14,8 @@ const UserSchema = new Schema({
     suscripcion: Number,
     nombreEmpresa: String,
     linkEmpresa: String,
-    recursos: [{ type : mongoose.Schema.Types.ObjectId, ref: 'recurso' }]
+    recursos: [{ type : mongoose.Schema.Types.ObjectId, ref: 'recurso' }],
+    activo: Boolean
 });
 
 UserSchema.pre('save', function(next) {

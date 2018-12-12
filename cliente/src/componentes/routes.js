@@ -21,7 +21,7 @@ import EditarCliente from './EditarCliente';
 import EditarProveedor from './EditarProveedor';
 import ComprarSuscripcion from './ComprarSuscripcion';
 import NavBar from './NavBar';
-
+import ConfReg from './ConfReg';
 import Tree from './Tree';
 
 import SideBar from './SideBar';
@@ -58,7 +58,8 @@ export const makeMainRoutes = () => {
                     <Route path="/articulosProveedor" render={() => (
                         <ArticulosProveedor auth={auth} />
                     )} />
-
+                    <Route path="/confReg/" component={ConfReg} />
+                    
                     <Route exact path="/articulo/:articuloId" render={(props) => (
                         <ArticuloDetalle
                             auth={auth} {...props}

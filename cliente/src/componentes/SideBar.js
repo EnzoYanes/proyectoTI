@@ -33,13 +33,13 @@ class SideBar extends Component {
         this.cargarSidenav();
         return (
           
-                <div className="left theme-customization">
+                <div className="left theme-customization" >
                     <ul id="slide-out" class="sidenav">
                         <TreeView url="http://localhost:5000/api/categoria/"  showIcon={false}
                             onSelectItem={ this.onSelectItem.bind(this) }
                         />
                     </ul>
-                    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                    <a href="#" data-target="slide-out" class="sidenav-trigger" style={{position:'fixed'}}><i class="material-icons">menu</i></a>
                 </div> 
         );
     }
