@@ -24,7 +24,8 @@ class InfoUsuario extends Component {
         axios.post(`http://localhost:5000/api/user/getAllUsers`)
             .then(res => {
                 this.setState({
-                    usuarios: res.data.filter(x => x.tipo !== 'Admin')
+                    usuarios: res.data.filter(x => x.tipo !== 'Admin'),
+                    arr: res.data.filter(x => x.tipo !== 'Admin')
                 })
             })
     }
@@ -33,7 +34,7 @@ class InfoUsuario extends Component {
         //alert(id);
         let object = this.state.usuarios;
         for (const key in object) {
-            if (object[key]._id == id) {
+            if (object[key]._id === id) {
                 const usuario = object[key];
                 this.setState({
                     usrInfo : usuario
@@ -55,7 +56,12 @@ class InfoUsuario extends Component {
     }
 
     tipoUsu = (e) => {
-        let arr = this.state.usuarios.filter(x => x.tipo === e.target.value)
+        let arr;
+        if (e.target.value !== "" ) {
+            arr = this.state.usuarios.filter(x => x.tipo === e.target.value)
+        }else{
+            arr = this.state.usuarios;
+        }
         this.setState({
             arr : arr
         })
@@ -75,36 +81,37 @@ class InfoUsuario extends Component {
             <div>
                 <div id='contenedor'>
                     <h2>Lista de usuarios</h2>
-                    <select name="tipo" onChange={this.tipoUsu} className="browser-default">
-                                <option value="">Tipo de usuario</option>
-                                <option value="Cliente">Clientes</option>
-                                <option value="Proveedor">Proveedores</option>
-                            </select>
-                        <table className="striped">
-                            <thead>
-                                <tr>
-                                    <th>Username</th>                            
-                                    <th>Correo</th>
-                                    <th>Tipo cliente</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {this.state.arr.map(usu => {
-                                    return(
-                                        <tr key={usu._id}>
-                                            <td >{usu.username}</td>
-                                            <td>{usu.correo}</td>
-                                            <td>{usu.tipo}</td>
-                                            { usu.tipo === 'Admin' ? null : <td><button className="btn" onClick={() => this.verInfo(usu._id)}>Ver info</button></td>}
-                                        </tr>
-                                    )
-                                })}
-                            </tbody>
-                        </table>
+                    <div style={{display:'flex'}}>
+                        <h6>Usuarios:</h6>
+                        <select name="tipo" onChange={this.tipoUsu} className="browser-default" style={{width:'200px', marginLeft:'20px'}}>
+                            <option value="">Todos</option>
+                            <option value="Cliente">Clientes</option>
+                            <option value="Proveedor">Proveedores</option>
+                        </select>
+                    </div>
+                    <table className="striped">
+                        <thead>
+                            <tr>
+                                <th>Username</th>                            
+                                <th>Correo</th>
+                                <th>Tipo cliente</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.state.arr.map(usu => {
+                                return(
+                                    <tr key={usu._id}>
+                                        <td >{usu.username}</td>
+                                        <td>{usu.correo}</td>
+                                        <td>{usu.tipo}</td>
+                                        { usu.tipo === 'Admin' ? null : <td><button className="btn" onClick={() => this.verInfo(usu._id)}>Ver info</button></td>}
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    </table>
                     </div>
                     <div id="info" style={{display:'none', width:'70%', paddingLeft:'15%'}} > 
-                        
-                        <button className="btn" onClick={() => this.mostrarCli()}>Mostrar clientes</button> 
                         
                         {
                             this.state.usrInfo ? 
@@ -147,6 +154,8 @@ class InfoUsuario extends Component {
                                 </div>
                             : null
                         }
+                    <br/>
+                    <button className="btn" onClick={() => this.mostrarCli()}><i className="material-icons left">arrow_back</i> Volver</button> 
                         
                 </div>
             </div>
