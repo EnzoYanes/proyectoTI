@@ -46,7 +46,7 @@ class Login extends Component{
         return(
             <div className="container">
                 <div className="row">
-                    <div className="col s5">
+                    <div className="col s6">
                         <h1>Bienvenidos!</h1>
                         <form onSubmit={this.login}>
                             <input name="username" value={this.state.username} onChange={this.handleChange} type="text" placeholder="username" />

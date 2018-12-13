@@ -15,7 +15,8 @@ class AltaRecurso extends Component {
             suscripcion: '',
             descargable: false,
             archivo: '',
-            categorias: []
+            categorias: [],
+            totCat: []
         }
         this.handleChange = this.handleChange.bind(this);
         this.addRecurso = this.addRecurso.bind(this);
@@ -37,7 +38,9 @@ class AltaRecurso extends Component {
             .then(res => res.json())
             .then(data => {
                 this.setState({categorias: data});
+                this.recorrer()
             })
+            
     }
 
     addRecurso(e){
@@ -95,6 +98,21 @@ class AltaRecurso extends Component {
         }
     }
 
+    recorrer = () =>{
+        let nue = [];
+        let object = this.state.categorias
+        for (const key in object) {
+            nue.push(object[key].nombre);
+            let hijo = object[key].children
+            for (const key2 in hijo) {
+                nue.push(hijo[key2].nombre);
+            }    
+        }
+        this.setState({
+            totCat: nue
+        })
+    }
+
     render() {
         return (
             <div className="container">
@@ -105,9 +123,9 @@ class AltaRecurso extends Component {
                             <select name="categoria" value={this.state.categoria} onChange={this.handleChange} className="browser-default">
                                 <option value="">Seleccione categoria</option>
                                 {
-                                    this.state.categorias.map(cat => {
+                                    this.state.totCat.map((item,index) => {
                                         return(
-                                            <option key={cat._id} value={cat.nombre}>{cat.nombre}</option>
+                                            <option key={index} value={item}>{item}</option>
                                         )
                                     })
                                 }
@@ -139,7 +157,7 @@ class AltaRecurso extends Component {
                                 </label>
                             </p>
                             <div class="file-field input-field">
-                                <div class="btn">
+                                <div class="btn light-blue darken-4">
                                     <span>Archivo</span>
                                     <input type="file" name="file" id="inputFileServer" onChange = {(e) => {this.cambiarFile(e)}} /> <br/><br/>
                                 </div>

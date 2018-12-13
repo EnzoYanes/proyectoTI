@@ -55,7 +55,7 @@ class Registro extends Component{
         return(
             <div className="container">
                 <div className="row">
-                    <div className="col s5">
+                    <div className="col s6">
                         <h1>Registro</h1>
                         <form onSubmit={this.addUser}>
                             <select name="tipo" value={this.state.tipo} onChange={this.handleChange} className="browser-default">

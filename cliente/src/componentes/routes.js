@@ -43,7 +43,7 @@ export const makeMainRoutes = () => {
                 <NavBar auth={auth} />
                 <SideBar />
                 
-                <div style={{paddingLeft:100, paddingBottom:60}}>
+                <div style={{paddingLeft:100, paddingRight:100, paddingBottom:60}}>
                     <Route path="/login" render={(props) => (
                         <Login
                             auth={auth} {...props}

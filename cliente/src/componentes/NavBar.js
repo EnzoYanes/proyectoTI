@@ -51,7 +51,7 @@ class NavBar extends Component {
         }
         return (
             <div className="navbar-fixed">
-                <nav className="nav-wrapper">
+                <nav className="nav-wrapper" style={{backgroundColor: '#717171'}}>
                     <ul className="left hide-on-med-and-down">
                         <Link to={'/'} className="btn">Inicio</Link>
                     </ul>

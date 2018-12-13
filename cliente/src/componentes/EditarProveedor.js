@@ -76,7 +76,7 @@ class EditarProveedor extends Component{
             <div className="container">
                 <div className="row">
                     <h1>Actualizar datos de Proveedor</h1>
-                    <div className="col s5">
+                    <div className="col s6">
                         <form onSubmit={this.actualizar}>
                             <input name="username" value={this.state.username} onChange={this.handleChange} type="text" disabled={true} />
                             <input name="nombre" value={this.state.nombre} onChange={this.handleChange} type="text" placeholder="Nombre" required />
