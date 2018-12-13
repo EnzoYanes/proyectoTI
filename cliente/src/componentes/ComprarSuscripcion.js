@@ -64,7 +64,7 @@ class ComprarSuscripcion extends Component{
             <div className="container">
                 <div className="row">
                     <h1>Cambiar suscripción</h1>
-                    <div className="col s5">
+                    <div className="col s6">
                         <form onSubmit={this.actualizar}>
                             <input name="username" value={this.state.username} type="text" disabled={true} />
                             <input name="nombre" value={this.state.nombre} type="text" disabled={true} />

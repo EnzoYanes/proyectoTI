@@ -35,13 +35,24 @@ class NavBar extends Component {
             resultado = <div>
                 <a href="/" className='dropdown-trigger btn' data-target='dropdown1' style={{width:200}} >{user.username}</a>
                 <ul id='dropdown1' className='dropdown-content'>
-                    <li><a href="/comprarSuscripcion">Comprar suscripción</a></li>
-                    <li><a href="/editarProveedor">Editar proveedor</a></li>
-                    <li><a href="/editarCliente">Editar cliente</a></li>
-                    <li><a href="/altaCategoria">Alta de categoria</a></li>
-                    <li><a href="/suscripciones">Suscripciónes</a></li>
-                    <li><a href="/altaRecurso">Alta de recurso</a></li>
-                    <li><a href="/articulosProveedor">Mis recursos</a></li>
+                { user.tipo === 'Admin' ? 
+                            <div>
+                            <li><a href="/altaCategoria">Alta de categoria</a></li>
+                            <li><a href="/suscripciones">Suscripciónes</a></li>
+                            </div>
+                            :
+                            user.tipo === 'Proveedor' ?  
+                                <div>
+                                    <li><a href="/editarProveedor">Editar proveedor</a></li>
+                                    <li><a href="/altaRecurso">Alta de recurso</a></li>
+                                    <li><a href="/articulosProveedor">Mis recursos</a></li>
+                                </div>
+                                : 
+                            <div>
+                                <li><a href="/comprarSuscripcion">Comprar suscripción</a></li>
+                                <li><a href="/editarCliente">Editar cliente</a></li>
+                            </div>   
+                    }          
                     <li className="divider"></li>
                     <li><a href="/" onClick={this.cerrarSesion}>Cerrar Sesión</a></li>
                 </ul>
@@ -55,7 +66,7 @@ class NavBar extends Component {
         }
         return (
             <div className="navbar-fixed">
-                <nav className="nav-wrapper">
+                <nav className="nav-wrapper" style={{backgroundColor: '#717171'}}>
                     <ul className="left hide-on-med-and-down">
                         <Link to={'/'} onClick={this.home} className="btn">Inicio</Link>
                     </ul>

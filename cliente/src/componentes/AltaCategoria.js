@@ -61,7 +61,7 @@ class AltaCategoria extends Component {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col s5">
+                    <div className="col s6">
                         <h4>Alta categoria</h4>
                         <form onSubmit={this.addCategoria}>
                             <select name="nombrePadre" value={this.state.nombrePadre} onChange={this.handleChange} className="browser-default">

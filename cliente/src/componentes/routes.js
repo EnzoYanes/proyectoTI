@@ -48,7 +48,7 @@ class Rutas extends Component {
                     <NavBar auth={auth} setCategorias={this.setCategorias} />
                     <SideBar setCategorias={this.setCategorias}/>
                     
-                    <div style={{paddingLeft:100, paddingBottom:60}}>
+                    <div style={{paddingLeft:100, paddingRight:100, paddingBottom:60}}>
                         <Route path="/login" render={(props) => (
                             <Login
                                 auth={auth} {...props}
@@ -63,7 +63,9 @@ class Rutas extends Component {
                         )} />
                         <Route path="/altaCategoria" component={AltaCategoria} />
                         <Route path="/suscripciones" component={Suscripciones} />
-                        <Route path="/altaRecurso" component={AltaRecurso} />
+                        <Route path="/altaRecurso" render={() => (
+                            <AltaRecurso auth={auth} />
+                        )}/>
                         <Route path="/articulosProveedor" render={() => (
                             <ArticulosProveedor auth={auth} />
                         )} />

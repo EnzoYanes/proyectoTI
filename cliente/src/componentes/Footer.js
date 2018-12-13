@@ -5,7 +5,7 @@ class Footer extends Component{
 render(){
     return(
         <div>         
-            <footer className="page-footer"  style={{position:'fixed', bottom:'0px', width:'100%', height:'60px'}}>
+            <footer className="page-footer"  style={{position:'fixed', bottom:'0px', width:'100%', height:'60px', background: '#717171'}}>
                 <div className="container">
                 <div className="footer-copyright">
                     <div className="container" >
