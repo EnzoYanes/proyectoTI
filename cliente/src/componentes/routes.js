@@ -23,6 +23,7 @@ import ComprarSuscripcion from './ComprarSuscripcion';
 import NavBar from './NavBar';
 import ConfReg from './ConfReg';
 import Tree from './Tree';
+import InfoUsuarios from './InfoUsuarios';
 
 import SideBar from './SideBar';
 import Footer from './Footer';
@@ -74,7 +75,7 @@ class Rutas extends Component {
                             <ArticulosProveedor auth={auth} />
                         )} />
                         <Route path="/confReg/" component={ConfReg} />
-                        
+                        <Route path="/verInfoUsu" component={InfoUsuarios} />
                         <Route exact path="/articulo/:articuloId" render={(props) => (
                             <ArticuloDetalle
                                 auth={auth} {...props}
