@@ -59,6 +59,7 @@ class Rutas extends Component {
                         <Route exact path="/" render={() => (
                             <Articulos
                                 categorias={this.state.categorias}
+                                auth={auth}
                             />
                         )} />
                         <Route path="/altaCategoria" component={AltaCategoria} />
