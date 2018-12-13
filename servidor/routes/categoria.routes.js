@@ -9,4 +9,5 @@ router.post('/', categoria.addCategoria);
 router.post('/:name', categoria.addChildren);
 
 router.get('/:id', categoria.findCategoriaById);
+
 module.exports = router;

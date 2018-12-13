@@ -21,12 +21,11 @@ class ArticuloDetalle extends Component {
     getDatos = () => {
         const idArticulo = this.props.location.pathname.replace('/articulo/', '');
         const userToken = this.props.auth.getUser();
-        fetch(`http://localhost:5000/api/recurso/${idArticulo}`)
-            .then(res => res.json())
-            .then(data => {
+        axios.get(`http://localhost:5000/api/recurso/${idArticulo}`)
+            .then(res => {
                 this.setState({
-                    articulo: data,
-                    clientes: data.clientes
+                    articulo: res.data,
+                    clientes: res.data.clientes
                 })
             })
 
@@ -42,7 +41,6 @@ class ArticuloDetalle extends Component {
         if (this.state.user.suscripcion >= this.state.articulo.suscripcion) {
             const idRecurso = this.state.articulo._id;
             const idUser = this.state.user._id;
-            axios.post(`http://localhost:5000/api/user/addRecurso/${idUser}`, {idRecurso});
             axios.post(`http://localhost:5000/api/recurso/addCliente/${idRecurso}`,{idUser});
             window.M.toast({html: 'Recurso obtenido'});
             this.state.clientes.push(this.state.user);
@@ -65,7 +63,11 @@ class ArticuloDetalle extends Component {
         if (!this.tieneRecurso()) {
             resultado = <div>
                 <p><b>Suscripcion:</b> {this.state.articulo.suscripcion}</p>
-                <button className="btn" onClick={this.obtenerRecurso}>Obtener</button>
+                {
+                    this.state.user.tipo === 'Cliente' ?
+                        <button className="btn" onClick={this.obtenerRecurso}>Obtener</button>
+                        : ''
+                }
             </div>
         }else{
             if (this.state.articulo.tipo === "Video") {
@@ -107,54 +109,6 @@ class ArticuloDetalle extends Component {
                         <Link to="/login">Iniciar Sesión</Link>
                     </div>
                 )}
-           
-           
-{/*         <div>
-                    //Aca tomo el valor del id que recupero de la url y se lo paso a una funcion 
-                     <button onClick={() => this.conf(idArticulo)}>Presione aqui para confirmar Registro</button>
-                     // Al pasar el mouse por arriba de este campo ejecuta una funcion la que nosotros queramos 
-                     <button onMouseOver={() => this.conf("paso por aqui el mouse")}>Pasar mouse por arriba a ver que pasa</button>                
-
-                </div>
-                
-                {/* <div>
-                    
-                    <video src={`/img/video.mp4`} controls style={{width: '30%', height: '50%'}} hidden = {false}/>
-
-                </div>
-                    <img src={`/img/MERN.png`} alt=""/>
-                    <audio src={`/img/audio.mp3`} controls />
-                    
-                    <div>
-                        <button onClick = { () => this.previewFile()} >Abrir</button>
-                    </div>
-                    <div></div>
-                    <a href={'/img/Proyecto2018.pdf'} >Descargar pdf</a>
-                   <button onClick={() => { window.open('/img/MERN.png', '_blank'); }} >Click to show</button>
-           
-           
-            
-            <div style={{paddingLeft:"300px", paddingTop:"50px"}} >
-                   <Iframe 
-                        url={this.state.url}
-                        width="70%"
-                        height="700px"
-                        id="myId"
-                        //className="myClassname"
-                        //display="initial"
-                        position="relative"
-                        //allowFullScreen
-                        
-                        />
-                        <br/><br/><br/>
-                        <a className="btn" href="/img/Proyecto2018.pdf">Descargar</a>
-                        <br/><br/><br/>
-
-                    </div>
-           </div>
-            //    function openPDF(){
-            //window.open("myurl/files/"+nombreArchivo+".pdf","_blank"); */}
-            
             </div>
         );
     }

@@ -49,8 +49,8 @@ class AltaCategoria extends Component {
             }
             else{
                 window.M.toast({html: 'Categoria creada'});
-                this.setState({nombre:'', categorias: []});
                 this.getCategorias();
+                this.setState({nombre:'', nombrePadre: ''});
             }
         })
         .catch(error => console.log(error));

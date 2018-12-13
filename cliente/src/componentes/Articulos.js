@@ -59,7 +59,6 @@ class Articulos extends Component {
     }
 
     render() {
-        const userTipo = this.props.auth.getUser().tipo;
         return (
             <React.Fragment>
                 <h2 className="center">Nuestros Articulos</h2>
@@ -68,7 +67,6 @@ class Articulos extends Component {
                         <Articulo
                             informacion={this.state.articulos[articulo]}
                             key={articulo}
-                            userTipo={userTipo}
                         />
                     ))}
                 </div>

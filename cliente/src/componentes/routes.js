@@ -46,7 +46,9 @@ class Rutas extends Component {
             <Router history={history}>
                 <div>
                     <NavBar auth={auth} setCategorias={this.setCategorias} />
-                    <SideBar setCategorias={this.setCategorias}/>
+                    <SideBar
+                        setCategorias={this.setCategorias}
+                    />
                     
                     <div style={{paddingLeft:100, paddingRight:100, paddingBottom:60}}>
                         <Route path="/login" render={(props) => (
@@ -59,10 +61,11 @@ class Rutas extends Component {
                         <Route exact path="/" render={() => (
                             <Articulos
                                 categorias={this.state.categorias}
-                                auth={auth}
                             />
                         )} />
-                        <Route path="/altaCategoria" component={AltaCategoria} />
+                        <Route exact path="/altaCategoria" render={() => (
+                            <AltaCategoria/>
+                        )} />
                         <Route path="/suscripciones" component={Suscripciones} />
                         <Route path="/altaRecurso" render={() => (
                             <AltaRecurso auth={auth} />

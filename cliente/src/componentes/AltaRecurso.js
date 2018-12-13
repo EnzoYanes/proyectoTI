@@ -14,9 +14,7 @@ class AltaRecurso extends Component {
             descargable: false,
             archivo: '',
             categorias: [],
-            idUser: '',
-            totCat: []
-            
+            idUser: ''
         }
         this.handleChange = this.handleChange.bind(this);
         this.addRecurso = this.addRecurso.bind(this);
@@ -44,8 +42,13 @@ class AltaRecurso extends Component {
         fetch('http://localhost:5000/api/categoria/')
             .then(res => res.json())
             .then(data => {
-                this.setState({categorias: data});
-                this.recorrer()
+                for (const key in data){
+                    this.state.categorias.push({nombre: data[key].nombre, value: data[key].nombre});
+                    for (const key2 in data[key].children){
+                        this.state.categorias.push({nombre: '- ' + data[key].children[key2].nombre, value: data[key].children[key2].nombre});
+                    }
+                }
+                this.setState({categorias: this.state.categorias});
             })
             
     }
@@ -105,21 +108,6 @@ class AltaRecurso extends Component {
         }
     }
 
-    recorrer = () =>{
-        let nue = [];
-        let object = this.state.categorias
-        for (const key in object) {
-            nue.push(object[key].nombre);
-            let hijo = object[key].children
-            for (const key2 in hijo) {
-                nue.push(hijo[key2].nombre);
-            }    
-        }
-        this.setState({
-            totCat: nue
-        })
-    }
-
     render() {
         return (
             <div className="container">
@@ -130,9 +118,9 @@ class AltaRecurso extends Component {
                             <select name="categoria" value={this.state.categoria} onChange={this.handleChange} className="browser-default">
                                 <option value="">Seleccione categoria</option>
                                 {
-                                    this.state.totCat.map((item,index) => {
+                                    this.state.categorias.map((item,index) => {
                                         return(
-                                            <option key={index} value={item}>{item}</option>
+                                            <option key={index} value={item.value}>{item.nombre}</option>
                                         )
                                     })
                                 }

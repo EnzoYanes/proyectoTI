@@ -16,10 +16,6 @@ class SideBar extends Component {
         history.replace('/');
     }
 
-    componentWillMount(){
-        this.cargarSidenav();
-    }
-
     cargarSidenav(){
         let sidenav = document.querySelectorAll('.sidenav');
         let options = {

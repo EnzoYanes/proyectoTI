@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom';
 
 const Articulo = (props) => {
     const {nombre, _id, tipo} = props.informacion;
-    const userTipo = props.userTipo; 
     return (
         <div className="col 3">
             <div className="card">
@@ -13,14 +12,9 @@ const Articulo = (props) => {
                     :
                     <img src={`img/pdf-icon.png`} alt={nombre} style={{width:'200px', height:'220px'}} />
                 }
-                {
-                    userTipo === 'Cliente' ?
-                        <div className="card-content">
-                            <Link to={`/articulo/${_id}`} className="btn">Más Información</Link>
-                        </div>
-                        :
-                        ''
-                }
+                <div className="card-content">
+                    <Link to={`/articulo/${_id}`} className="btn">Más Información</Link>
+                </div>
             </div>
         </div>
     );
