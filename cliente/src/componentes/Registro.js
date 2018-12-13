@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import axios from 'axios';
 
 class Registro extends Component{
 
@@ -29,25 +30,30 @@ class Registro extends Component{
     }
 
     addUser(e){
-        fetch('http://localhost:5000/api/user/register', {
-            method: 'POST',
-            body: JSON.stringify(this.state),
-            headers:{
-                'Accept': 'application/jason',
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(res => res.json())
-        .then(data => {
-            if(data.status){
-                window.M.toast({html: data.status});
-            }
-            else{
-                window.M.toast({html: 'Usuario creado'});   
-                this.props.history.push("/login");
-            }
-        })
-        .catch(error => console.log(error));
+        const user = {
+            username: this.state.username,
+            password: this.state.password,
+            nombre: this.state.nombre,
+            apellido: this.state.apellido,
+            fechaNac: this.state.fechaNac,
+            correo: this.state.correo,
+            tipo: this.state.tipo,
+            suscripcion: this.state.suscripcion,
+            nombreEmpresa: this.state.nombreEmpresa,
+            linkEmpresa: this.state.linkEmpresa,
+            activo: false
+        }
+        axios.post('http://localhost:5000/api/user/register', {user})
+            .then(res => {
+                if(res.data.status){
+                    window.M.toast({html: res.data.status});
+                }
+                else{
+                    window.M.toast({html: 'Usuario creado'});   
+                    this.props.history.push("/login");
+                }
+            })
+            .catch(error => console.log(error));
         e.preventDefault();
     }
 

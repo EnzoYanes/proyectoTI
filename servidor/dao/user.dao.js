@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
 const register = async(req, res) => {
-    console.log(req.body);
     const { username, 
         password, 
         nombre, 
@@ -12,20 +11,21 @@ const register = async(req, res) => {
         tipo, 
         suscripcion, 
         nombreEmpresa, 
-        linkEmpresa 
-    } = req.body;
+        linkEmpresa,
+        activo
+    } = req.body.user;
     User.findOne({username: username}, (error, usuario) => {
         if (!usuario) {
-            let activo = false;
             const user = new User({username, password, nombre, apellido, fechaNac, correo, tipo, suscripcion, nombreEmpresa, linkEmpresa, activo});
             user.save();
-            sendMail(user.id, user.correo);
+            if (username != 'admin') {
+                sendMail(user.id, user.correo);
+            }
             res.json({ok: true});
         } else {
             res.json({status: "Existe otro usuario con mismo nombre"});
         }
     })
-    
 };
 
 const sendMail  = (idUsr, tomail) => {

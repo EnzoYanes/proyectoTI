@@ -18,6 +18,10 @@ class NavBar extends Component {
         M.Dropdown.init(dropdowns, options);
     }
 
+    home = () => {
+        this.props.setCategorias('');
+    }
+
     cerrarSesion = () => {
         this.props.auth.logout();
         history.replace('/');
@@ -53,7 +57,7 @@ class NavBar extends Component {
             <div className="navbar-fixed">
                 <nav className="nav-wrapper">
                     <ul className="left hide-on-med-and-down">
-                        <Link to={'/'} className="btn">Inicio</Link>
+                        <Link to={'/'} onClick={this.home} className="btn">Inicio</Link>
                     </ul>
                     <ul className="right hide-on-med-and-down">
                         {resultado}
