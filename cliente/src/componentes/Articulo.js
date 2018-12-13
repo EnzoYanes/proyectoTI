@@ -9,9 +9,9 @@ const Articulo = (props) => {
             <div className="card center">
             <p style={{fontSize:'20px', paddingLeft:'10px'}}>{nombre}</p>
                 { tipo === 'Video' ? 
-                    <img src={`img/video-icon.jpg`} alt={nombre} style={{width:'200px', height:'220px'}}/>
+                    <img src={`video-icon.jpg`} alt={nombre} style={{width:'200px', height:'220px'}}/>
                     :
-                    <img src={`img/pdf-icon.png`} alt={nombre} style={{width:'200px', height:'220px'}} />
+                    <img src={`pdf-icon.png`} alt={nombre} style={{width:'200px', height:'220px'}} />
                 }
                 {
                     userTipo === 'Cliente' ?
