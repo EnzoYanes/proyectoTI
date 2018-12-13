@@ -68,7 +68,7 @@ class ArticuloDetalle extends Component {
                 <button className="btn" onClick={this.obtenerRecurso}>Obtener</button>
             </div>
         }else{
-            if (this.state.articulo.tipo == "Video") {
+            if (this.state.articulo.tipo === "Video") {
                resultado = <video src={`/img/${this.state.articulo.archivo}`} controls style={{width: '60%'}}/>
             }else{
                 resultado = <div>
@@ -82,7 +82,7 @@ class ArticuloDetalle extends Component {
                     <br/><br/>
                 </div>
             }
-            if (this.state.articulo.descargable == true) {
+            if (this.state.articulo.descargable === true) {
                 descargar = <div>
                     <a className="btn" href={'/img/'+this.state.articulo.archivo} download >Descargar</a>
                     <br/><br/>

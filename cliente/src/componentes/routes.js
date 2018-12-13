@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Route, Router } from 'react-router-dom';
 
 // Auth0
@@ -28,79 +28,89 @@ import InfoUsuarios from './InfoUsuarios';
 import SideBar from './SideBar';
 import Footer from './Footer';
 
-
 const auth = new Auth();
 
-/*const handleAuthentication = ({location}) => {
-  if (/access_token|id_token|error/.test(location.hash)) {
-    auth.handleAuthentication();
-  }
-}*/
+class Rutas extends Component {
 
-export const makeMainRoutes = () => {
-    return (
-        <Router history={history}>
-            <div>
-                <NavBar auth={auth} />
-                <SideBar />
-                
-                <div style={{paddingLeft:100, paddingRight:100, paddingBottom:60}}>
-                    <Route path="/login" render={(props) => (
-                        <Login
-                            auth={auth} {...props}
-                        />
-                    )} />
+    state = {
+        categorias: []
+    }
+
+    setCategorias = (newCat) => {
+        this.setState({
+            categorias: newCat
+        })
+    }
+
+    render() {
+        return (
+            <Router history={history}>
+                <div>
+                    <NavBar auth={auth} setCategorias={this.setCategorias} />
+                    <SideBar setCategorias={this.setCategorias}/>
                     
-                    <Route path="/registro" component={Registro} />
-                    <Route exact path="/" component={Articulos} />
-                    <Route path="/altaCategoria" component={AltaCategoria} />
-                    <Route path="/suscripciones" component={Suscripciones} />
-                    <Route path="/altaRecurso" render={() => (
-                        <AltaRecurso auth={auth} />
-                    )}/>
+                    <div style={{paddingLeft:100, paddingRight:100, paddingBottom:60}}>
+                        <Route path="/login" render={(props) => (
+                            <Login
+                                auth={auth} {...props}
+                            />
+                        )} />
+                        
+                        <Route path="/registro" component={Registro} />
+                        <Route exact path="/" render={() => (
+                            <Articulos
+                                categorias={this.state.categorias}
+                                auth={auth}
+                            />
+                        )} />
+                        <Route path="/altaCategoria" component={AltaCategoria} />
+                        <Route path="/suscripciones" component={Suscripciones} />
+                        <Route path="/altaRecurso" render={() => (
+                            <AltaRecurso auth={auth} />
+                        )}/>
+                        <Route path="/articulosProveedor" render={() => (
+                            <ArticulosProveedor auth={auth} />
+                        )} />
+                        <Route path="/confReg/" component={ConfReg} />
+                        <Route path="/verInfoUsu" component={InfoUsuarios} />
+                        <Route exact path="/articulo/:articuloId" render={(props) => (
+                            <ArticuloDetalle
+                                auth={auth} {...props}
+                            />
+                        ) } />
+                        <Route exact path="/editarRecurso/:recursoId" render={(props) => (
+                            <EditarRecurso
+                                id={props.location.pathname.replace('/editarRecurso/','')}
+                            />
+                        ) } />
+                        <Route exact path="/estadisticasRecurso/:recursoId" render={(props) => (
+                            <EstadisticasRecurso
+                                id={props.location.pathname.replace('/estadisticasRecurso/','')}
+                            />
+                        ) } />
+                        <Route exact path="/editarCliente" render={(props) => (
+                            <EditarCliente
+                                auth={auth}
+                            />
+                        ) } />
+                        <Route exact path="/editarProveedor" render={(props) => (
+                            <EditarProveedor
+                                auth={auth}
+                            />
+                        ) } />
+                        <Route exact path="/comprarSuscripcion" render={(props) => (
+                            <ComprarSuscripcion
+                                auth={auth}
+                            />
+                        ) } />
+                    </div>
 
-                    <Route path="/articulosProveedor" render={() => (
-                        <ArticulosProveedor auth={auth} />
-                    )} />
-                    <Route path="/confReg/" component={ConfReg} />
-
-                    <Route path="/verInfoUsu" component={InfoUsuarios} />
-                    
-                    <Route exact path="/articulo/:articuloId" render={(props) => (
-                        <ArticuloDetalle
-                            auth={auth} {...props}
-                        />
-                    ) } />
-                    <Route exact path="/editarRecurso/:recursoId" render={(props) => (
-                        <EditarRecurso
-                            id={props.location.pathname.replace('/editarRecurso/','')}
-                        />
-                    ) } />
-                    <Route exact path="/estadisticasRecurso/:recursoId" render={(props) => (
-                        <EstadisticasRecurso
-                            id={props.location.pathname.replace('/estadisticasRecurso/','')}
-                        />
-                    ) } />
-                    <Route exact path="/editarCliente" render={(props) => (
-                        <EditarCliente
-                            auth={auth}
-                        />
-                    ) } />
-                    <Route exact path="/editarProveedor" render={(props) => (
-                        <EditarProveedor
-                            auth={auth}
-                        />
-                    ) } />
-                    <Route exact path="/comprarSuscripcion" render={(props) => (
-                        <ComprarSuscripcion
-                            auth={auth}
-                        />
-                    ) } />
+                    <Route path="/tree" component={Tree}/>
+                    <Footer />
                 </div>
-
-                <Route path="/tree" component={Tree}/>
-                <Footer />
-            </div>
-        </Router>
-    );
+            </Router>
+        );
+    }
 }
+
+export default Rutas;

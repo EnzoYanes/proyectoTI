@@ -4,13 +4,20 @@ import axios from 'axios';
 
 class Articulos extends Component {
 
-    state = {
-        articulos: []
+    constructor(props){
+        super(props);
+        this.state = {
+            articulos: []
+        }
     }
 
-    componentWillMount(){
-        this.queryAPI();
+    componentDidMount(){
+        this.getRecursos();
         this.CrearSuscripciones();
+    }
+
+    componentWillReceiveProps(){
+        this.getRecursos();
     }
 
     CrearSuscripciones = () => {
@@ -22,38 +29,46 @@ class Articulos extends Component {
                         {_id: 2, nombre: 'Silver', precio: 5},
                         {_id: 3, nombre: 'Gold', precio: 10}
                     ];
-                    const admin = {username: 'admin', password: 'admin', nombre: 'Administrador', fechaNac: '01/01/1990', suscripcion: 1, tipo: 'Admin', activado: true};
+                    const user = {username: 'admin', password: 'admin', nombre: 'Administrador', tipo: 'Admin', activo: true};
                     suscripciones.map(item => (
                         axios.post('http://localhost:5000/api/suscripcion/',{item})
                     ));
-                    axios.post('http://localhost:5000/api/user/register/',{admin});
+                    axios.post('http://localhost:5000/api/user/register/',{user});
                 }
             })
     }
 
-    queryAPI = () => {
-        const url = 'http://localhost:5000/api/recurso';
-        axios.get(url)
+    getRecursos = () => {
+        axios.get('http://localhost:5000/api/recurso')
             .then(res => {
-                this.setState({articulos: res.data})
+                const cat = this.props.categorias;
+                let recursos = [];
+                recursos = res.data;
+                if (cat.length > 0){
+                    recursos = recursos.filter(
+                        function(e){
+                            return this.indexOf(e.categoria) >= 0;
+                        },
+                        cat
+                    );
+                }
+                this.setState({
+                    articulos: recursos
+                })
             })
     }
 
     render() {
+        const userTipo = this.props.auth.getUser().tipo;
         return (
             <React.Fragment>
-                  {/*<div>
-                    <video src={`img/video.mp4#t=,3`} controls style={{width: '30%', height: '50%'}} />
-                    </div>
-                    
-                  <audio src={`img/audio.mp3#t=33,37`} controls />*/}
-
                 <h2 className="center">Nuestros Articulos</h2>
                 <div className="row">
                     {Object.keys(this.state.articulos).map(articulo => (
                         <Articulo
                             informacion={this.state.articulos[articulo]}
                             key={articulo}
+                            userTipo={userTipo}
                         />
                     ))}
                 </div>

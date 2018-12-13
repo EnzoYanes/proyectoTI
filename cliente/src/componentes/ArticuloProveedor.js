@@ -7,7 +7,11 @@ const ArticuloProveedor = (props) => {
         <div className="col 3">
             <div className="card">
             <p style={{fontSize:'20px', paddingLeft:'10px'}}>{nombre}</p>
-                { tipo == 'Video' ? <img src={`img/video-icon.jpg`} alt={nombre} style={{width:'200px', height:'220px'}}/> : <img src={`img/pdf-icon.png`} alt={nombre} style={{width:'200px', height:'220px'}} />}
+                { tipo === 'Video' ? 
+                    <img src={`img/video-icon.jpg`} alt={nombre} style={{width:'200px', height:'220px'}}/>
+                    :
+                    <img src={`img/pdf-icon.png`} alt={nombre} style={{width:'200px', height:'220px'}} />
+                }
                 <div className="card-content">
                     <Link to={`/estadisticasRecurso/${_id}`} className="btn">Estadísticas</Link>
                     <Link to={`/editarRecurso/${_id}`} className="btn">Editar</Link>

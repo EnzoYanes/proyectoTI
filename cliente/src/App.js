@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import {makeMainRoutes} from './componentes/routes';
-
-const routes = makeMainRoutes();
+import Rutas from './componentes/routes';
 
 class App extends Component {
   render() {
     return (
       <React.Fragment>
-        {routes}
+        <Rutas/>
       </React.Fragment>
     );
   }

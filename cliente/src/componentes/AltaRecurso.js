@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-
 
 class AltaRecurso extends Component {
 
@@ -165,13 +163,13 @@ class AltaRecurso extends Component {
                                     <span>Descargable</span>
                                 </label>
                             </p>
-                            <div class="file-field input-field">
-                                <div class="btn light-blue darken-4">
+                            <div className="file-field input-field">
+                                <div className="btn light-blue darken-4">
                                     <span>Archivo</span>
                                     <input type="file" name="file" id="inputFileServer" onChange = {(e) => {this.cambiarFile(e)}} /> <br/><br/>
                                 </div>
-                                <div class="file-path-wrapper">
-                                    <input class="file-path validate" type="text"/>
+                                <div className="file-path-wrapper">
+                                    <input className="file-path validate" type="text"/>
                                 </div>
                             </div>
                             <button type="submit" className="btn light-blue darken-4">Crear</button>

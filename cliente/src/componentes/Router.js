@@ -8,7 +8,7 @@ import Articulos from './Articulos';
 import ArticuloDetalle from './ArticuloDetalle';
 import NavBar from './NavBar';
 import infoProductos from '../datos/datos.json';
-
+/*
 class Router extends Component {
 
     state = {
@@ -32,6 +32,7 @@ class Router extends Component {
                         <Route exact path="/" render={() => (
                             <Articulos
                                 articulos={this.state.articulos}
+                                auth={auth}
                             />
                         )}/>
                         <Route exact path="/articulo/:articuloId" render={(props) => {
@@ -50,4 +51,4 @@ class Router extends Component {
     }
 }
 
-export default Router;
+export default Router;*/
