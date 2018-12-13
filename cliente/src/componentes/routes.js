@@ -54,7 +54,10 @@ export const makeMainRoutes = () => {
                     <Route exact path="/" component={Articulos} />
                     <Route path="/altaCategoria" component={AltaCategoria} />
                     <Route path="/suscripciones" component={Suscripciones} />
-                    <Route path="/altaRecurso" component={AltaRecurso} />
+                    <Route path="/altaRecurso" render={() => (
+                        <AltaRecurso auth={auth} />
+                    )}/>
+
                     <Route path="/articulosProveedor" render={() => (
                         <ArticulosProveedor auth={auth} />
                     )} />

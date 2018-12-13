@@ -1,5 +1,6 @@
 const Recurso = require('../models/recurso');
 const fileUpload = require('express-fileupload');
+const User = require('../models/user');
 
 
 const getRecursos = async (req, res) => {
@@ -20,7 +21,8 @@ const addRecurso = async(req, res) => {
         tipo,
         suscripcion,
         descargable,
-        archivo} = req.body;
+        archivo,
+        idUser} = req.body;
     Recurso.findOne({nombre: nombre}, (error, rec) => {
         if (!rec) {
             const recurso = new Recurso({categoria,
@@ -31,9 +33,16 @@ const addRecurso = async(req, res) => {
                 suscripcion,
                 descargable,
                 archivo});
-            recurso.save();
-
-            res.json({ok: true});
+                recurso.save();
+        
+            User.findOne({_id: idUser}, (error, usuario) => {
+                if(error) throw error;
+                if (usuario) {
+                    usuario.recursos.push(recurso.id);
+                    usuario.save();
+                    res.json({ok: true});
+            }})
+           
         } else {
             res.json({message: 'Existe recurso'});
         }

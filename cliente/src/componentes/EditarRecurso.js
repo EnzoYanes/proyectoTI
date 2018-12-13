@@ -14,7 +14,8 @@ class EditarRecurso extends Component {
             suscripcion: '',
             descargable: false,
             archivo: '',
-            categorias: []
+            categorias: [],
+            totCat: []
         }
         this.handleChange = this.handleChange.bind(this);
         this.updateRecurso = this.updateRecurso.bind(this);
@@ -37,7 +38,23 @@ class EditarRecurso extends Component {
             .then(res => res.json())
             .then(data => {
                 this.setState({categorias: data});
+                this.recorrer()
             })
+    }
+
+    recorrer = () =>{
+        let nue = [];
+        let object = this.state.categorias
+        for (const key in object) {
+            nue.push(object[key].nombre);
+            let hijo = object[key].children
+            for (const key2 in hijo) {
+                nue.push(hijo[key2].nombre);
+            }    
+        }
+        this.setState({
+            totCat: nue
+        })
     }
 
     getRecurso(){
@@ -83,15 +100,15 @@ class EditarRecurso extends Component {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col s5">
+                    <div className="col s6">
                         <h4>Editar recurso</h4>
                         <form onSubmit={this.updateRecurso}>
                             <select name="categoria" value={this.state.categoria} onChange={this.handleChange} className="browser-default">
                                 <option value="">Seleccione categoria</option>
                                 {
-                                    this.state.categorias.map(cat => {
+                                    this.state.totCat.map((item,index) => {
                                         return(
-                                            <option key={cat._id} value={cat.nombre}>{cat.nombre}</option>
+                                            <option key={index} value={item}>{item}</option>
                                         )
                                     })
                                 }

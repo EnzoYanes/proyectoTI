@@ -12,18 +12,27 @@ class AltaRecurso extends Component {
             descripcion: '',
             imagen: '',
             tipo: '',
-            suscripcion: '',
+            suscripcion: '1',
             descargable: false,
             archivo: '',
             categorias: [],
+            idUser: '',
             totCat: []
+            
         }
         this.handleChange = this.handleChange.bind(this);
         this.addRecurso = this.addRecurso.bind(this);
+        this.getUser = this.getUser.bind(this);
     }
 
     componentWillMount(){
+        this.getUser();
         this.getCategorias();
+    }
+  
+    getUser(){
+        let user = this.props.auth.getUser();
+        this.setState({idUser: user._id});
     }
 
     handleChange(e){
@@ -65,7 +74,7 @@ class AltaRecurso extends Component {
                     descripcion: '',
                     imagen: '',
                     tipo: '',
-                    suscripcion: '',
+                    suscripcion: '1',
                     descargable: false,
                     archivo: '',
                     categorias: []});
@@ -138,12 +147,6 @@ class AltaRecurso extends Component {
                                 <option value="Revista">Revista</option>
                                 <option value="Libro">Libro</option>
                                 <option value="Video">Video</option>
-                            </select>
-                            <select name="suscripcion" value={this.state.suscripcion} onChange={this.handleChange} className="browser-default">
-                                <option value="">Suscripción requerida</option>
-                                <option value="1">Free</option>
-                                <option value="2">Silver</option>
-                                <option value="3">Gold</option>
                             </select>
                             <p>
                                 <label>
