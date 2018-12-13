@@ -7,7 +7,8 @@ class Articulos extends Component {
     constructor(props){
         super(props);
         this.state = {
-            articulos: []
+            articulos: [],
+            aux: []
         }
     }
 
@@ -53,19 +54,34 @@ class Articulos extends Component {
                     );
                 }
                 this.setState({
-                    articulos: recursos
+                    articulos: recursos,
+                    aux: recursos
                 })
             })
+    }
+
+    buscador = (e) => {
+        if (e.target.value.length > 3) {
+            this.setState({
+                aux: this.state.articulos.filter(x => (
+                    x.nombre.toLowerCase().indexOf(e.target.value.toLowerCase()) !== -1 ))
+            })
+        }else{
+            this.setState({
+                aux: this.state.articulos
+            })
+        }
     }
 
     render() {
         return (
             <React.Fragment>
                 <h2 className="center">Nuestros Articulos</h2>
+                <input type="text" placeholder="Busqueda" onChange={this.buscador} style={{width:'300px'}}/>
                 <div className="row">
-                    {Object.keys(this.state.articulos).map(articulo => (
+                    {Object.keys(this.state.aux).map(articulo => (
                         <Articulo
-                            informacion={this.state.articulos[articulo]}
+                            informacion={this.state.aux[articulo]}
                             key={articulo}
                         />
                     ))}

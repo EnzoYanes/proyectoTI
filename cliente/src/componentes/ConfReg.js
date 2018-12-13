@@ -36,7 +36,7 @@ class ConfReg extends Component {
         return(
             <div>
                 <h1>Confirmacion de registro</h1>
-                <button onClick={this.conf} className="btn light-blue darken-4 ">Presione aqui para confirmar Registro</button>
+                <button onClick={this.conf} className="btn">Presione aqui para confirmar Registro</button>
             </div>
         )
     }

@@ -152,7 +152,7 @@ class AltaRecurso extends Component {
                                 </label>
                             </p>
                             <div className="file-field input-field">
-                                <div className="btn light-blue darken-4">
+                                <div className="btn">
                                     <span>Archivo</span>
                                     <input type="file" name="file" id="inputFileServer" onChange = {(e) => {this.cambiarFile(e)}} /> <br/><br/>
                                 </div>
@@ -160,7 +160,7 @@ class AltaRecurso extends Component {
                                     <input className="file-path validate" type="text"/>
                                 </div>
                             </div>
-                            <button type="submit" className="btn light-blue darken-4">Crear</button>
+                            <button type="submit" className="btn">Crear</button>
                         </form>
                     </div>
                 </div>

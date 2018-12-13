@@ -82,10 +82,10 @@ class Registro extends Component{
                                     <button type="submit" className="btn light-blue darken-4">Crear</button>
                                 </div>
                                 : 
-                                <button type="submit" className="btn light-blue darken-4">Crear</button>
+                                <button type="submit" className="btn">Crear</button>
                                 }
                             
-                            <Link to={`/`} className="btn light-blue darken-4 right" >Inicio</Link>
+                            <Link to={`/`} className="btn right" >Inicio</Link>
                         </form>
                         
                     </div>

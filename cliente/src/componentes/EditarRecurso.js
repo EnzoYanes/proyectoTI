@@ -139,7 +139,7 @@ class EditarRecurso extends Component {
                                     <span>Descargable</span>
                                 </label>
                             </p>
-                            <button type="submit" className="btn light-blue darken-4">Guardar</button>
+                            <button type="submit" className="btn">Guardar</button>
                         </form>
                     </div>
                 </div>

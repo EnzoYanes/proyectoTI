@@ -78,7 +78,7 @@ class Suscripciones extends Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="submit" className="btn light-blue darken-4">
+                                        <button type="submit" className="btn">
                                             Actualizar
                                         </button>
                                     </form>
@@ -101,7 +101,7 @@ class Suscripciones extends Component {
                                                     <td>{item.nombre}</td>
                                                     <td>{item.precio}</td>
                                                     <td>
-                                                        <button className="btn light-blue darken-4" onClick={() => this.editSuscripcion(item._id)}>
+                                                        <button className="btn" onClick={() => this.editSuscripcion(item._id)}>
                                                             <i className="material-icons">edit</i>
                                                         </button>
                                                     </td>

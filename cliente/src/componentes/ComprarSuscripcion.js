@@ -101,7 +101,7 @@ class ComprarSuscripcion extends Component{
                                     </div>
                                 </div>
                             </div>                            
-                            <button type="submit" className="btn light-blue darken-4">Guardar</button>
+                            <button type="submit" className="btn">Guardar</button>
                         </form>
                     </div>
                 </div>

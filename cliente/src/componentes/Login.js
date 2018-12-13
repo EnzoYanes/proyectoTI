@@ -52,8 +52,8 @@ class Login extends Component{
                             <input name="username" value={this.state.username} onChange={this.handleChange} type="text" placeholder="username" />
                             <input name="password" value={this.state.password} onChange={this.handleChange} type="password" placeholder="password" />
 
-                            <button type="submit" className="btn light-blue darken-4">Iniciar</button>
-                            <Link to={'/registro'} className="btn light-blue darken-4 right">Registrarse</Link>
+                            <button type="submit" className="btn">Iniciar</button>
+                            <Link to={'/registro'} className="btn right">Registrarse</Link>
                         </form>
                     </div>
                 </div>

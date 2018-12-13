@@ -78,7 +78,7 @@ class EditarCliente extends Component{
                             <input name="fechaNac" value={this.state.fechaNac} onChange={this.handleChange} type="date" required />
                             <input name="correo" value={this.state.correo} onChange={this.handleChange} type="text" placeholder="Correo electrónico" required />
                             
-                            <button type="submit" className="btn light-blue darken-4">Guardar</button>
+                            <button type="submit" className="btn">Guardar</button>
                         </form>
                         
                     </div>

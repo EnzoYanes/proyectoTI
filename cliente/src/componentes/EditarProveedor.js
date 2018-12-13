@@ -86,7 +86,7 @@ class EditarProveedor extends Component{
                             <input name="nombreEmpresa" value={this.state.nombreEmpresa} onChange={this.handleChange} type="text" placeholder="Nombre de la empresa" required />
                             <input name="linkEmpresa" value={this.state.linkEmpresa} onChange={this.handleChange} type="text" placeholder="Link de la empresa" required />
 
-                            <button type="submit" className="btn light-blue darken-4">Guardar</button>
+                            <button type="submit" className="btn">Guardar</button>
                         </form>
                         
                     </div>

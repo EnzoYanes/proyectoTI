@@ -76,7 +76,7 @@ class AltaCategoria extends Component {
                             </select>
                             <input name="nombre" value={this.state.nombre} onChange={this.handleChange} type="text" placeholder="Nombre" required />
                             
-                            <button type="submit" className="btn light-blue darken-4">Crear</button>
+                            <button type="submit" className="btn">Crear</button>
                         </form>
                         
                     </div>
