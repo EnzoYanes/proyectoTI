@@ -23,6 +23,7 @@ import ComprarSuscripcion from './ComprarSuscripcion';
 import NavBar from './NavBar';
 import ConfReg from './ConfReg';
 import Tree from './Tree';
+import InfoUsuarios from './InfoUsuarios';
 
 import SideBar from './SideBar';
 import Footer from './Footer';
@@ -62,6 +63,8 @@ export const makeMainRoutes = () => {
                         <ArticulosProveedor auth={auth} />
                     )} />
                     <Route path="/confReg/" component={ConfReg} />
+
+                    <Route path="/verInfoUsu" component={InfoUsuarios} />
                     
                     <Route exact path="/articulo/:articuloId" render={(props) => (
                         <ArticuloDetalle

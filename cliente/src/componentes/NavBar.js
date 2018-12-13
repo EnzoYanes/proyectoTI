@@ -35,6 +35,7 @@ class NavBar extends Component {
                             <div>
                             <li><a href="/altaCategoria">Alta de categoria</a></li>
                             <li><a href="/suscripciones">Suscripciónes</a></li>
+                            <li><a href="/verInfoUsu">Ver info usuarios</a></li>
                             </div>
                             :
                             user.tipo === 'Proveedor' ?  

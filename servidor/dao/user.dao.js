@@ -124,6 +124,15 @@ const confReg = async(req, res) => {
         res.json({ok: 'ok'});
     }
     else res.end();
+};
+
+const getAllUsers = async(req,res) => {
+    const u = await User.find();
+    if(u){
+        res.json(u);
+    }
+    else res.end();
+    
 }
 
 
@@ -134,5 +143,6 @@ module.exports = {
     getUser,
     putUser,
     addRecursoToUser,
-    confReg
+    confReg,
+    getAllUsers
 };

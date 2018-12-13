@@ -69,10 +69,16 @@ class Registro extends Component{
                             <input name="apellido" value={this.state.apellido} onChange={this.handleChange} type="text" placeholder="Apellido" required />
                             <input name="fechaNac" value={this.state.fechaNac} onChange={this.handleChange} type="date" required />
                             <input name="correo" value={this.state.correo} onChange={this.handleChange} type="text" placeholder="Correo electrónico" required />
-                            <input name="nombreEmpresa" value={this.state.nombreEmpresa} onChange={this.handleChange} type="text" placeholder="Nombre de la Empresa" />
-                            <input name="linkEmpresa" value={this.state.linkEmpresa} onChange={this.handleChange} type="text" placeholder="Link de la Empresa" />
-
-                            <button type="submit" className="btn light-blue darken-4">Crear</button>
+                            { this.state.tipo === 'Proveedor' ?   
+                                <div>
+                                    <input name="nombreEmpresa" value={this.state.nombreEmpresa} onChange={this.handleChange} type="text" placeholder="Nombre de la Empresa" />
+                                    <input name="linkEmpresa" value={this.state.linkEmpresa} onChange={this.handleChange} type="text" placeholder="Link de la Empresa" />
+                                    <button type="submit" className="btn light-blue darken-4">Crear</button>
+                                </div>
+                                : 
+                                <button type="submit" className="btn light-blue darken-4">Crear</button>
+                                }
+                            
                             <Link to={`/`} className="btn light-blue darken-4 right" >Inicio</Link>
                         </form>
                         
