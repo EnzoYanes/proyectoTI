@@ -74,10 +74,16 @@ class Articulos extends Component {
     }
 
     render() {
+        let titulo = "Todos los artículos";
+        if (this.props.categorias.length > 0) {
+            titulo = this.props.categorias[0];
+        }
         return (
             <React.Fragment>
-                <h2 className="center">Nuestros Articulos</h2>
-                <input type="text" placeholder="Busqueda" onChange={this.buscador} style={{width:'300px'}}/>
+                <div className="center">
+                    <h2>{titulo}</h2>
+                    <input type="text" placeholder="Busqueda" onChange={this.buscador} className="grey lighten-4" style={{width:'300px'}}/>
+                </div>
                 <div className="row">
                     {Object.keys(this.state.aux).map(articulo => (
                         <Articulo

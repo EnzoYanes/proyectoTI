@@ -13,7 +13,7 @@ class Registro extends Component{
             apellido: '',
             fechaNac: '',
             correo: '',
-            tipo: '',
+            tipo: 'Cliente',
             suscripcion: '1',
             nombreEmpresa: '',
             linkEmpresa: ''
@@ -65,7 +65,6 @@ class Registro extends Component{
                         <h1>Registro</h1>
                         <form onSubmit={this.addUser}>
                             <select name="tipo" value={this.state.tipo} onChange={this.handleChange} className="browser-default">
-                                <option value="">Seleccione tipo</option>
                                 <option value="Cliente">Cliente</option>
                                 <option value="Proveedor">Proveedor</option>
                             </select>
@@ -79,11 +78,10 @@ class Registro extends Component{
                                 <div>
                                     <input name="nombreEmpresa" value={this.state.nombreEmpresa} onChange={this.handleChange} type="text" placeholder="Nombre de la Empresa" />
                                     <input name="linkEmpresa" value={this.state.linkEmpresa} onChange={this.handleChange} type="text" placeholder="Link de la Empresa" />
-                                    <button type="submit" className="btn light-blue darken-4">Crear</button>
                                 </div>
-                                : 
-                                <button type="submit" className="btn">Crear</button>
-                                }
+                                : null
+                            }
+                            <button type="submit" className="btn">Crear</button>
                             
                             <Link to={`/`} className="btn right" >Inicio</Link>
                         </form>

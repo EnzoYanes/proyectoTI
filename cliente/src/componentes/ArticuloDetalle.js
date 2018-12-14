@@ -60,9 +60,21 @@ class ArticuloDetalle extends Component {
         const {isAuthenticated} = this.props.auth;
         let resultado;
         let descargar;
+        let suscripcion;
+        switch (this.state.articulo.suscripcion) {
+            case 1:
+                suscripcion = "Free";
+                break;
+            case 2:
+                suscripcion = "Silver";
+                break;
+            default:
+                suscripcion = "Gold";
+                break;
+        }
         if (!this.tieneRecurso()) {
             resultado = <div>
-                <p><b>Suscripcion:</b> {this.state.articulo.suscripcion}</p>
+                <p><b>Suscripcion:</b> {suscripcion}</p>
                 {
                     this.state.user.tipo === 'Cliente' ?
                         <button className="btn" onClick={this.obtenerRecurso}>Obtener</button>

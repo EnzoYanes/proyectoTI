@@ -31,7 +31,7 @@ class SideBar extends Component {
         return (
             <div className="left theme-customization" >
                 <ul id="slide-out" className="sidenav">
-                    <TreeView url="http://localhost:5000/api/categoria/"  showIcon={false}
+                    <TreeView url="http://localhost:5000/api/categoria/" showIcon={false}
                         onSelectItem={ this.onSelectItem.bind(this) }
                     />
                 </ul>
